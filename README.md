@@ -26,7 +26,7 @@ Run the simulator by one step using
 ```c
 tick(simulator)
 ```
-Running 120 examples and logging the simulator values:
+Running 120 ticks and logging the simulator values:
 ```c
 for (int i = 0; i < 120; i++)
 {
