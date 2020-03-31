@@ -6,18 +6,22 @@ int main()
     printf("Hello, World!\n");
 
     SpreadSimulationSettings* settings = createSimSettings(
-        900,
-        5,
-        850,
-        200,
-        50,
-        450,
-        20,
-        50,
-        50,
-        5,
-        600,
-        600);
+            900,
+            5,
+            850,
+            200,
+            50,
+            450,
+            20,
+            50,
+            50,
+            5,
+            600,
+            600);
+
+    //SpreadSimulationSettings* settings = loadSettings("settings.txt");
+    //saveSettings(settings, "settings.txt");
+    //exportSettings(settings, "export.txt");
 
     SpreadSimulator* simulator = createSpreadSimulator(settings);
 

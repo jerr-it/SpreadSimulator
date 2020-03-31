@@ -22,7 +22,10 @@ SpreadSimulationSettings* settings = createSimSettings(
         600,    /*Area of movement width*/
         600);   /*Area of movement height*/
 ```
-
+Or load an existing configuration:
+```c
+SpreadSimulationSettings* settings = loadSettings("settings.txt");
+```
 
 Create a SpreadSimulator:
 ```c
@@ -40,6 +43,14 @@ for (int i = 0; i < 120; i++)
     printf("Unaffected: %i, Infected: %i, Cured: %i, Dead: %i \n", simulator->unaffected, simulator->infected, simulator->cured, simulator->dead);
     tick(simulator);
 }
+```
+Save your settings to a file for later use:
+```c
+saveSettings(settings, "settings.txt");
+```
+You also have the option to save a more human-readable file:
+```c
+exportSettings(settings, "export.txt");
 ```
 Dont forget to free afterwards to avoid memory leaks
 ```c

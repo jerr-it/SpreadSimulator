@@ -6,6 +6,7 @@ extern "C"{
 #endif
 
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct
 {
@@ -24,6 +25,11 @@ typedef struct
 } SpreadSimulationSettings;
 
 SpreadSimulationSettings* createSimSettings(int entCount, int initialInfected, int mobileEntities, int hospitalCap, int testspertick, int ticksUH, int infChance, int survChance, int detectChance, int infRadius, int limX, int limY);
+
+void saveSettings(SpreadSimulationSettings* settings, char* filename);
+SpreadSimulationSettings* loadSettings(char* filename);
+
+void exportSettings(SpreadSimulationSettings* settings, char* filename);
 
 #ifdef __cplusplus
 }
