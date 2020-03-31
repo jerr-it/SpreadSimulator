@@ -1,88 +1,34 @@
-//
-// Created by jerrit on 26.03.20.
-//
 #include "SpreadSimulator.h"
 
-Vector* createVector(double x, double y){
-    Vector* vec = (Vector*)calloc(1, sizeof(Vector));
-
-    vec->x = x;
-    vec->y = y;
-
-    return vec;
-}
-
-Vector* addVector(Vector a, Vector b){
-    Vector* added = createVector(0, 0);
-
-    added->x = a.x + b.x;
-    added->y = a.y + b.y;
-
-    return added;
-}
-
-double distSq(Vector a, Vector b){
-    return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
-}
-
-Infectable* createInfectable(int tUSinceInfection, int tUUntilEnd,int infChance, int survChance, int detectChance, bool infected, bool mobil, double infRadius){
-    Infectable* inf = (Infectable*)calloc(1, sizeof(Infectable));
-
-    inf->timeUnitSinceInfection = tUSinceInfection;
-    inf->timeUnitUntilEnd = tUUntilEnd;
-    inf->infectionChance = infChance;
-    inf->survivalChance = survChance;
-    inf->isInfected = infected;
-    inf->isMobile = mobil;
-    inf->influenceRadius = infRadius;
-    inf->isCured = false;
-    inf->isDead = false;
-    inf->inHospital = false;
-    inf->detectionChance = detectChance;
-
-    return inf;
-}
-
-Entity* createEntity(Vector* pos, Vector* vel, Vector* conf, Infectable* inf){
-    Entity* ent = (Entity*)calloc(1, sizeof(Entity));
-
-    ent->position = pos;
-    ent->movement = vel;
-    ent->confinedSpace = conf;
-    ent->infection = inf;
-
-    return ent;
-}
-
-SpreadSimulator* createSpreadSimulator(int samples,int infectedAtStart, int mobileCount, int hospitalcap, int testspT, int tUForHeal,int infectionChance, int survivalChance, int detectChance, double influenceRad, Vector* confinedSpace){
+SpreadSimulator* createSpreadSimulator(SpreadSimulationSettings* settings){
     SpreadSimulator* sim = (SpreadSimulator*)calloc(1, sizeof(SpreadSimulator));
 
-    sim->entityCount = samples;
-    sim->entities = (Entity**)calloc(samples, sizeof(Entity*));
+    sim->entityCount = settings->entityCount;
+    sim->entities = (Entity**)calloc(settings->entityCount, sizeof(Entity*));
 
-    for(int i = 0; i < samples; i++)
+    for(int i = 0; i < settings->entityCount; i++)
     {
         bool infected = false;
-        if(i < infectedAtStart){
+        if(i < settings->initialInfected){
             infected = true;
         }
 
         bool mobile = false;
-        if(i < mobileCount){
+        if(i < settings->mobileEntities){
             mobile = true;
         }
 
-        Infectable* inf = createInfectable(0, tUForHeal,infectionChance, survivalChance, detectChance, infected, mobile, influenceRad);
-        sim->entities[i] = createEntity(createVector(rand() % (int)confinedSpace->x, rand() % (int)confinedSpace->y), createVector(rand() % 5 - 2.5, rand() % 5 - 2.5), confinedSpace, inf);
+        Infectable* inf = createInfectable(0, settings->ticksUntilHealed, settings->chanceOfInfectionUponContact, settings->chanceOfSurviving, settings->chanceOfDetection, infected, mobile, settings->influenceRadius);
+        sim->entities[i] = createEntity(createVector(rand() % settings->confinedSpaceX, rand() % settings->confinedSpaceY), createVector(rand() % 5 - 2.5, rand() % 5 - 2.5), createVector(settings->confinedSpaceX, settings->confinedSpaceY), inf);
     }
 
     sim->cured = 0;
-    sim->infected = infectedAtStart;
+    sim->infected = settings->initialInfected;
     sim->dead = 0;
-    sim->unaffected = samples - infectedAtStart;
-    sim->hospitalCapacity = hospitalcap;
+    sim->unaffected = settings->entityCount - settings->initialInfected;
+    sim->hospitalCapacity = settings->hospitalCapacity;
     sim->hospitalized = 0;
-    sim->testsPerTick = testspT;
+    sim->testsPerTick = settings->testsPerTick;
 
     sim->tick = 0;
 
@@ -174,15 +120,6 @@ void tick(SpreadSimulator* simulator){
             }
         }
     }
-}
-
-void freeEntity(Entity* ent){
-    free(ent->position);
-    free(ent->movement);
-    free(ent->confinedSpace);
-    free(ent->infection);
-
-    free(ent);
 }
 
 void freeSpreadSimulator(SpreadSimulator* sim){
