@@ -29,8 +29,7 @@ typedef struct {
     int tick;
 } SpreadSimulator;
 
-SpreadSimulator *
-createSpreadSimulator(SpreadSimulationSettings* settings);
+SpreadSimulator* createSpreadSimulator(SpreadSimulationSettings* settings);
 
 void tick(SpreadSimulator *simulator);
 

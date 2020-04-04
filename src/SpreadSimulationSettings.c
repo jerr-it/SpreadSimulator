@@ -1,6 +1,6 @@
 #include "SpreadSimulationSettings.h"
 
-SpreadSimulationSettings* createSimSettings(int entCount, int initialInfected, int mobileEntities, int hospitalCap, int testspertick, int ticksUH, int infChance, int survChance, int detectChance, int infRadius, int limX, int limY){
+SpreadSimulationSettings* createSimSettings(int entCount, int initialInfected, int mobileEntities, int hospitalCap, int testspertick, int ticksUH, int infChance, int survChance, int detectChance, int infRadius, bool activeDist, int limX, int limY){
     if(mobileEntities > entCount || initialInfected > entCount){
         return NULL;
     }
@@ -21,6 +21,7 @@ SpreadSimulationSettings* createSimSettings(int entCount, int initialInfected, i
     settings->hospitalCapacity = hospitalCap;
     settings->chanceOfDetection = detectChance;
     settings->influenceRadius = infRadius;
+    settings->activeDistancing = activeDist;
     settings->confinedSpaceX = limX;
     settings->confinedSpaceY = limY;
 
@@ -48,6 +49,7 @@ void saveSettings(SpreadSimulationSettings* settings, char* filename)
 
     fprintf(fp, "%i\n", settings->chanceOfDetection);
     fprintf(fp, "%i\n", settings->influenceRadius);
+    fprintf(fp, "%i\n", settings->activeDistancing);
     fprintf(fp, "%i\n", settings->confinedSpaceX);
     fprintf(fp, "%i\n", settings->confinedSpaceY);
 
@@ -92,7 +94,8 @@ SpreadSimulationSettings* loadSettings(char* filename)
             array[8],
             array[9],
             array[10],
-            array[11]
+            array[11],
+            array[12]
             );
 
     return settings;
@@ -119,6 +122,7 @@ void exportSettings(SpreadSimulationSettings* settings, char* filename)
 
     fprintf(fp, "Detection chance on test: %i\n", settings->chanceOfDetection);
     fprintf(fp, "Influence radius: %i\n", settings->influenceRadius);
+    fprintf(fp, "Active distancing: %i\n", settings->activeDistancing);
     fprintf(fp, "Space: %i * %i\n", settings->confinedSpaceX, settings->confinedSpaceY);
 
     fclose(fp);

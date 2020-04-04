@@ -18,7 +18,7 @@ SpreadSimulator* createSpreadSimulator(SpreadSimulationSettings* settings){
             mobile = true;
         }
 
-        Infectable* inf = createInfectable(0, settings->ticksUntilHealed, settings->chanceOfInfectionUponContact, settings->chanceOfSurviving, settings->chanceOfDetection, infected, mobile, settings->influenceRadius);
+        Infectable* inf = createInfectable(0, settings->ticksUntilHealed, settings->chanceOfInfectionUponContact, settings->chanceOfSurviving, settings->chanceOfDetection, infected, mobile, settings->influenceRadius, settings->activeDistancing);
         sim->entities[i] = createEntity(createVector(rand() % settings->confinedSpaceX, rand() % settings->confinedSpaceY), createVector(rand() % 5 - 2.5, rand() % 5 - 2.5), createVector(settings->confinedSpaceX, settings->confinedSpaceY), inf);
     }
 
@@ -91,9 +91,7 @@ void tick(SpreadSimulator* simulator){
         }
 
         if(simulator->entities[i]->infection->isMobile){
-            Vector* newPos = addVector(*simulator->entities[i]->position, *simulator->entities[i]->movement);
-            free(simulator->entities[i]->position);
-            simulator->entities[i]->position = newPos;
+            updateEntityPosition(simulator->entities[i]);
 
             if(simulator->entities[i]->position->x <= 0 || simulator->entities[i]->position->x >= simulator->entities[i]->confinedSpace->x){
                 simulator->entities[i]->movement->x *= -1;
@@ -101,6 +99,26 @@ void tick(SpreadSimulator* simulator){
             if(simulator->entities[i]->position->y <= 0 || simulator->entities[i]->position->y >= simulator->entities[i]->confinedSpace->y){
                 simulator->entities[i]->movement->y *= -1;
             }
+
+            if(simulator->entities[i]->infection->activeDistancing) {
+                for (int j = 0; j < simulator->entityCount; j++) {
+                    if (i == j) {
+                        continue;
+                    }
+                    if (distSq(*simulator->entities[i]->position, *simulator->entities[j]->position) <
+                        simulator->entities[i]->infection->influenceRadius *
+                        simulator->entities[i]->infection->influenceRadius * 2 * 2) {
+                        Vector *repulsion = createVector(
+                                simulator->entities[i]->position->x - simulator->entities[j]->position->x,
+                                simulator->entities[i]->position->y - simulator->entities[j]->position->y);
+                        scaleVector(repulsion, 0.025);
+                        addVector(simulator->entities[i]->acceleration, repulsion);
+                        free(repulsion);
+                    }
+                }
+            }
+
+            limitVector(simulator->entities[i]->movement, 1);
         }
     }
 

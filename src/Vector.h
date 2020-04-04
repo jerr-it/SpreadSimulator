@@ -9,6 +9,9 @@
 extern "C"{
 #endif
 
+#include <stdlib.h>
+#include <math.h>
+
 typedef struct {
     double x;
     double y;
@@ -16,7 +19,12 @@ typedef struct {
 
 Vector *createVector(double x, double y);
 
-Vector *addVector(Vector a, Vector b);
+void addVector(Vector* a, Vector* b);
+void scaleVector(Vector* a, double scale);
+
+void limitVector(Vector* a, double limit);
+void normalizeVector(Vector* a);
+double getMagnitude(Vector* a);
 
 double distSq(Vector a, Vector b);
 
@@ -25,5 +33,6 @@ void freeVector(Vector *v);
 #ifdef __cplusplus
 }
 #endif
+
 
 #endif //SPREADSIM_VECTOR_H

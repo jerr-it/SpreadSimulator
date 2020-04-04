@@ -10,6 +10,7 @@ extern "C"{
 #endif
 
 #include <stdbool.h>
+#include <stdlib.h>
 
 typedef struct {
     int timeUnitSinceInfection;
@@ -26,12 +27,14 @@ typedef struct {
 
     bool inHospital;
     double influenceRadius;
+    bool activeDistancing;
 } Infectable;
 
-Infectable* createInfectable(int tUSinceInfection, int tUUntilEnd,int infChance, int survChance, int detect, bool infected, bool mobil, double infRadius);
+Infectable* createInfectable(int tUSinceInfection, int tUUntilEnd,int infChance, int survChance, int detect, bool infected, bool mobil, double infRadius, bool activeDist);
 
 #ifdef __cplusplus
 }
 #endif
+
 
 #endif //SPREADSIM_INFECTABLE_H

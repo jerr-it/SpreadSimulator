@@ -7,6 +7,7 @@ extern "C"{
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef struct
 {
@@ -20,11 +21,12 @@ typedef struct
     int chanceOfSurviving;
     int chanceOfDetection;
     int influenceRadius;
+    bool activeDistancing;
     int confinedSpaceX;
     int confinedSpaceY;
 } SpreadSimulationSettings;
 
-SpreadSimulationSettings* createSimSettings(int entCount, int initialInfected, int mobileEntities, int hospitalCap, int testspertick, int ticksUH, int infChance, int survChance, int detectChance, int infRadius, int limX, int limY);
+SpreadSimulationSettings* createSimSettings(int entCount, int initialInfected, int mobileEntities, int hospitalCap, int testspertick, int ticksUH, int infChance, int survChance, int detectChance, int infRadius,bool activeDist, int limX, int limY);
 
 void saveSettings(SpreadSimulationSettings* settings, char* filename);
 SpreadSimulationSettings* loadSettings(char* filename);

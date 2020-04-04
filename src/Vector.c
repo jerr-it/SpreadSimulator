@@ -13,13 +13,30 @@ Vector* createVector(double x, double y){
     return vec;
 }
 
-Vector* addVector(Vector a, Vector b){
-    Vector* added = createVector(0, 0);
+void addVector(Vector* a, Vector* b){
+    a->x += b->x;
+    a->y += b->y;
+}
 
-    added->x = a.x + b.x;
-    added->y = a.y + b.y;
+void scaleVector(Vector* a, double scale){
+    a->x *= scale;
+    a->y *= scale;
+}
 
-    return added;
+void limitVector(Vector* a, double limit){
+    if(getMagnitude(a) > limit){
+        normalizeVector(a);
+        scaleVector(a, limit);
+    }
+}
+
+void normalizeVector(Vector* a){
+    double mag = getMagnitude(a);
+    scaleVector(a, 1/mag);
+}
+
+double getMagnitude(Vector* a){
+    return sqrt(a->x * a->x + a->y * a->y);
 }
 
 double distSq(Vector a, Vector b){

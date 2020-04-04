@@ -19,6 +19,7 @@ SpreadSimulationSettings* settings = createSimSettings(
         50,     /*chance of surviving*/
         50,     /*detection chance, chance of an infected being found upon testing*/
         5,      /*radius of influence (in pixels)*/
+        true,   /*enable active distancing*/
         600,    /*Area of movement width*/
         600);   /*Area of movement height*/
 ```
@@ -68,3 +69,4 @@ When an entity gets infected a timer will start. As soon as this timer runs out,
 The hospital capacity(hospital capacity) determines how many hospital slots are available to the infected.  
 Each tick a number of random entities(tests per tick) will be tested and detected using a certain probability(detection chance).  
 In the case of an entity getting a positive test result, he won't be able to move anymore and its chance of surviving is set to 90%.
+If active social distancing is set to true, the entities will try actively try to avoid each other.

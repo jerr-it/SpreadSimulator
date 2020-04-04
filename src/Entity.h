@@ -14,18 +14,22 @@ extern "C"{
 #include <stdlib.h>
 
 typedef struct {
-    Vector *position;
-    Vector *movement;
-    Vector *confinedSpace;
-    Infectable *infection;
+    Vector* position;
+    Vector* movement;
+    Vector* acceleration;
+    Vector* confinedSpace;
+    Infectable* infection;
 } Entity;
 
 Entity *createEntity(Vector *pos, Vector *vel, Vector *conf, Infectable *inf);
+
+void updateEntityPosition(Entity* entity);
 
 void freeEntity(Entity *ent);
 
 #ifdef __cplusplus
 }
 #endif
+
 
 #endif //SPREADSIM_ENTITY_H
