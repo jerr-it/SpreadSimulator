@@ -56,6 +56,7 @@ exportSettings(settings, "export.txt");
 Dont forget to free afterwards to avoid memory leaks
 ```c
 freeSpreadSimulator(simulator);
+free(settings);
 ```
 ## How it works
 In the following text the phrase within parenthesis will be a reference to above code snippets comments.  
