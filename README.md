@@ -9,7 +9,7 @@ Include Header:
 Create settings for your simulation:
 ```c
 SpreadSimulationSettings* settings = createSimSettings(
-        900,    /*samples*/
+        1024,    /*entity count*/
         5,      /*initial infected*/
         850,    /*mobile entities*/
         200,    /*hospital capacity*/
@@ -35,7 +35,7 @@ SpreadSimulator* simulator = createSpreadSimulator(settings);
 The values related to a probability should be between 0-100.  
 Run the simulator by one step using
 ```c
-tick(simulator)
+tick(simulator);
 ```
 Running 120 ticks and logging the simulator values:
 ```c
@@ -64,10 +64,9 @@ The simulator creates a given number of entities(samples) within a confined spac
 Each of them is given a randomized motion vector, which is added to their position every tick.   
 A number of them will be infected at the start(initial infected).  
 A number of them will be able to move around(mobile entities).
-If one hits the border it'll invert its x/y movement component to stay within the confined space.  
 If another entity passes within a given radius(radius of influence in pixels), it'll get infected by a certain probability(chance of infection upon contact).  
 When an entity gets infected a timer will start. As soon as this timer runs out, the entity will either survive or die by a certain percentage(chance of surviving).  
 The hospital capacity(hospital capacity) determines how many hospital slots are available to the infected.  
 Each tick a number of random entities(tests per tick) will be tested and detected using a certain probability(detection chance).  
-In the case of an entity getting a positive test result, he won't be able to move anymore and its chance of surviving is set to 90%.
+In the case of an entity getting a positive test result, meaning he will be hospitalized, he won't be able to move anymore and its chance of surviving is set to 90%.
 If active social distancing is set to true, the entities will try actively try to avoid each other.
