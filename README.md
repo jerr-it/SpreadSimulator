@@ -1,7 +1,26 @@
-![C](https://img.shields.io/badge/-Language-blue?style=for-the-badge&logo=c)
-# SpreadSimulator
+<div style="text-align:center"><h1>SpreadSimulator</h1></div>
+
+<div style="text-align:center">
+<img src="https://img.shields.io/badge/-Language-blue?style=for-the-badge&logo=c" />
+</div>
+<br>
+<div style="text-align:center">
 A Simulation of the spread and containment of infections
-## How to use
+</div>
+
+<div style="display:flex;">
+    <div style="padding: 5px">
+        <img src="img/graph1.png" />
+    </div>
+    <div style="padding: 5px">
+        <img src="img/graph2.png" />
+    </div>
+</div>
+
+Made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot)
+
+<div style="text-align:center"><h2>How to use</21></div>
+
 Include Header:
 ```c
 #include "SpreadSimulator.h"
