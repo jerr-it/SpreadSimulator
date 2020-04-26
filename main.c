@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "SpreadSimulator.h"
+#include "src/SpreadSimulator.h"
 
 int main()
 {

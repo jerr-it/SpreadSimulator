@@ -19,6 +19,12 @@ Made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot)
 
 <h2 align="center">How to use</h2>
 
+Compile repo:
+```
+make SpreadSimulator
+./SpreadSimulator
+```
+
 Include Header:
 ```c
 #include "SpreadSimulator.h"
