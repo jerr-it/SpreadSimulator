@@ -21,6 +21,7 @@ Made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot)
 
 Compile repo:
 ```
+cmake .
 make SpreadSimulator
 ./SpreadSimulator
 ```
