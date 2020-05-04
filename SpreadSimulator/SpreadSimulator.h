@@ -29,6 +29,8 @@ SpreadSimulator* createSimulator(SimulationSettings* settings);
 
 void printStats(SpreadSimulator* simulator);
 
+void printStatsRaw(SpreadSimulator* simulator);
+
 void tick(SpreadSimulator* simulator);
 
 void tickEvent(SpreadSimulator* stats);

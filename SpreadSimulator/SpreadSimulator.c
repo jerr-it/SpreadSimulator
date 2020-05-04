@@ -218,6 +218,14 @@ void printStats(SpreadSimulator* simulator)
            simulator->stats->hospitalized);
 }
 
+void printStatsRaw(SpreadSimulator* simulator){
+    printf("%i %i %i %i %i %i\n",
+           simulator->stats->tick,
+           simulator->stats->susceptible,
+           simulator->stats->infected, simulator->stats->cured, simulator->stats->dead,
+           simulator->stats->hospitalized);
+}
+
 //Functions for 'events'
 //Makes tick method less messy and more readable
 void tickEvent(SpreadSimulator* simulator)

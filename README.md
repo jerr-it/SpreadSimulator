@@ -76,6 +76,10 @@ Running 120 ticks and logging the simulator values:
 for (int i = 0; i < 120; i++)
 {
     printStats(simulator);
+    //Use function below in case you want to save the data into a file using
+    // ./SpreadingSimulation > data.txt
+    //It removes unnecessary descriptions and makes the resulting file easier to parse
+    //printStatsRaw(simulator);
     tick(simulator);
 }
 ```
