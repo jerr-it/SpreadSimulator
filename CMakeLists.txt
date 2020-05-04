@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.17)
-project(SpreadSimulator)
+cmake_minimum_required(VERSION 3.15)
+project(SpreadSimulation C)
 
-file (GLOB CPP_FILES src/*.c)
-file (GLOB H_FILES src/*.h)
-set (SOURCE_FILES ${CPP_FILES} ${H_FILES})
+set(CMAKE_C_STANDARD 99)
 
-add_executable(SpreadSimulator ${SOURCE_FILES} main.c)
-target_link_libraries(SpreadSimulator m)
+add_subdirectory(SpreadSimulator)
+
+add_executable(SpreadSimulation main.c)
+target_link_libraries(SpreadSimulation m)
+target_link_libraries(SpreadSimulation SpreadSimulator)

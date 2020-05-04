@@ -11,28 +11,38 @@ A Simulation of the spread and containment of infections
 </p>
 
 <p align="center">
-    <img src="img/graph1.png" width=400/>
-    <img src="img/graph2.png" width=400/>
+    <img src="img/screenshot.png" width=900/>
 </div>
 
-Made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot)
+Image made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot) and SFML
+
+<h2 align="center">Newest version</h2>
+
+<p align="center">
+Completely rewrote original code to be more readable<br>
+<b>Implemented Quadtree</b>  <br><br>
+Performance measured to have increased by approx. a factor of <b>7</b>
+<br>Supports way larger amount of entities now
+<br><br>
+<i>Some function definitions and struct names changed, you might need to update your code</i>
+</p>
 
 <h2 align="center">How to use</h2>
 
 Compile repo:
 ```
 cmake .
-make SpreadSimulator
-./SpreadSimulator
+make SpreadSimulation
+./SpreadSimulation
 ```
 
 Include Header:
 ```c
-#include "SpreadSimulator.h"
+#include "SpreadSimulator/SpreadSimulator.h"
 ```
 Create settings for your simulation:
 ```c
-SpreadSimulationSettings* settings = createSimSettings(
+SimulationSettings* settings = createSettings(
         1024,    /*entity count*/
         5,      /*initial infected*/
         850,    /*mobile entities*/
@@ -49,12 +59,12 @@ SpreadSimulationSettings* settings = createSimSettings(
 ```
 Or load an existing configuration:
 ```c
-SpreadSimulationSettings* settings = loadSettings("settings.txt");
+SimulationSettings* settings = loadSettings("settings.bin");
 ```
 
 Create a SpreadSimulator:
 ```c
-SpreadSimulator* simulator = createSpreadSimulator(settings);
+SpreadSimulator* simulator = createSimulator(settings);
 ```  
 The values related to a probability should be between 0-100.  
 Run the simulator by one step using
@@ -65,22 +75,21 @@ Running 120 ticks and logging the simulator values:
 ```c
 for (int i = 0; i < 120; i++)
 {
-    printf("Unaffected: %i, Infected: %i, Cured: %i, Dead: %i \n", simulator->unaffected, simulator->infected, simulator->cured, simulator->dead);
+    printStats(simulator);
     tick(simulator);
 }
 ```
 Save your settings to a file for later use:
 ```c
-saveSettings(settings, "settings.txt");
+saveSettings(settings, "settings.bin");
 ```
 You also have the option to save a more human-readable file:
 ```c
-exportSettings(settings, "export.txt");
+exportSettings(settings, "exportSettings.txt");
 ```
 Dont forget to free afterwards to avoid memory leaks
 ```c
-freeSpreadSimulator(simulator);
-free(settings);
+cleanup(simulator);
 ```
 ## How it works
 In the following text the phrase within parenthesis will be a reference to above code snippets comments.  

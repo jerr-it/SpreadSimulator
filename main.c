@@ -1,38 +1,45 @@
-#include <stdio.h>
-#include "src/SpreadSimulator.h"
+#include "SpreadSimulator/SpreadSimulator.h"
+
+#include <time.h>
 
 int main()
 {
-    printf("Hello, World!\n");
+    SimulationSettings* settings = createSettings(
+            5000,
+            5,
+            850,
+            200,
+            50,
+            450,
+            20,
+            50,
+            50,
+            5,
+            true,
+            600, 600);
 
-    SpreadSimulationSettings* settings = createSimSettings(
-        900,
-        5,
-        850,
-        200,
-        50,
-        450,
-        20,
-        50,
-        50,
-        5,
-        true,
-        600,
-        600);
+    //Save and load settings of binary format
+    //SimulationSettings* settings = loadSettings("settings.bin");
+    //saveSettings(settings, "settings.bin");
 
-    //SpreadSimulationSettings* settings = loadSettings("settings.txt");
-    //saveSettings(settings, "settings.txt");
-    //exportSettings(settings, "export.txt");
+    //Export to a human readable format:
+    //exportSettings(settings, "exportSettings.txt");
 
-    SpreadSimulator* simulator = createSpreadSimulator(settings);
+    SpreadSimulator* simulator = createSimulator(settings);
 
-    for (int i = 0; i < 120; i++)
+    clock_t start, end;
+
+    for (int i = 0; i < 10000; i++)
     {
-        printf("Unaffected: %i, Infected: %i, Cured: %i, Dead: %i \n", simulator->unaffected, simulator->infected, simulator->cured, simulator->dead);
+        //start = clock();
         tick(simulator);
+        //end = clock();
+
+        //fprintf(stdout, "%ld\n", (end - start));
+        printStats(simulator);
     }
 
-    freeSpreadSimulator(simulator);
+    cleanup(simulator);
 
-    return(0);
+    return 0;
 }
