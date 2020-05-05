@@ -20,8 +20,7 @@ Image made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot) and
 
 <p align="center">
 Completely rewrote original code to be more readable<br>
-<b>Implemented Quadtree</b>  <br><br>
-Performance measured to have increased by approx. a factor of <b>7</b>
+<b>Implemented Quadtree</b>  <br>
 <br>Supports way larger amount of entities now
 <br><br>
 <i>Some function definitions and struct names changed, you might need to update your code</i>
@@ -42,7 +41,7 @@ Include Header:
 ```
 Create settings for your simulation:
 ```c
-SimulationSettings* settings = createSettings(
+SimulationSettings settings = createSettings(
         1024,    /*entity count*/
         5,      /*initial infected*/
         850,    /*mobile entities*/
@@ -59,23 +58,23 @@ SimulationSettings* settings = createSettings(
 ```
 Or load an existing configuration:
 ```c
-SimulationSettings* settings = loadSettings("settings.bin");
+SimulationSettings settings = *loadSettings("settings.bin");
 ```
 
 Create a SpreadSimulator:
 ```c
-SpreadSimulator* simulator = createSimulator(settings);
+SpreadSimulator simulator = createSimulator(&settings);
 ```  
 The values related to a probability should be between 0-100.  
 Run the simulator by one step using
 ```c
-tick(simulator);
+tick(&simulator);
 ```
 Running 120 ticks and logging the simulator values:
 ```c
 for (int i = 0; i < 120; i++)
 {
-    printStats(simulator);
+    printStats(&simulator);
     //Use function below in case you want to save the data into a file using
     // ./SpreadingSimulation > data.txt
     //It removes unnecessary descriptions and makes the resulting file easier to parse
@@ -85,15 +84,15 @@ for (int i = 0; i < 120; i++)
 ```
 Save your settings to a file for later use:
 ```c
-saveSettings(settings, "settings.bin");
+saveSettings(&settings, "settings.bin");
 ```
 You also have the option to save a more human-readable file:
 ```c
-exportSettings(settings, "exportSettings.txt");
+exportSettings(&settings, "exportSettings.txt");
 ```
 Dont forget to free afterwards to avoid memory leaks
 ```c
-cleanup(simulator);
+cleanup(&simulator);
 ```
 ## How it works
 In the following text the phrase within parenthesis will be a reference to above code snippets comments.  
