@@ -26,6 +26,8 @@ typedef struct
     int influenceRadius;
     bool activeDistancing;
 
+    int centralLocationsCount;
+
     int dimX;
     int dimY;
 } SimulationSettings;
@@ -33,7 +35,7 @@ typedef struct
 SimulationSettings
 createSettings(int EntityCount, int InitialInfected, int InitialMobile, int HospitalCapacity, int TestsPerTick,
                int TicksUntilExpiration, int InfectionChance, int SurvivalChance, int DetectionChance,
-               double InfluenceRadius, bool ActiveDistancing, int DimX, int DimY);
+               double InfluenceRadius, bool ActiveDistancing, int centralLocationsCount, int DimX, int DimY);
 
 void saveSettings(SimulationSettings* settings, char* filename);
 

@@ -3,7 +3,7 @@
 SimulationSettings
 createSettings(int EntityCount, int InitialInfected, int InitialMobile, int HospitalCapacity, int TestsPerTick,
                int TicksUntilExpiration, int InfectionChance, int SurvivalChance, int DetectionChance,
-               double InfluenceRadius, bool ActiveDistancing, int DimX, int DimY)
+               double InfluenceRadius, bool ActiveDistancing, int CentralLocationsCount, int DimX, int DimY)
 {
     SimulationSettings settings;
 
@@ -21,6 +21,8 @@ createSettings(int EntityCount, int InitialInfected, int InitialMobile, int Hosp
 
     settings.influenceRadius = InfluenceRadius;
     settings.activeDistancing = ActiveDistancing;
+
+    settings.centralLocationsCount = CentralLocationsCount;
 
     settings.dimX = DimX;
     settings.dimY = DimY;
@@ -71,6 +73,8 @@ void exportSettings(SimulationSettings* settings, char* filename)
 
     fprintf(fp, "Influence radius: %i\n", settings->influenceRadius);
     fprintf(fp, "Active distancing: %i\n", settings->activeDistancing);
+
+    fprintf(fp, "Central locations count: %i\n", settings->centralLocationsCount);
 
     fprintf(fp, "X dimension: %i\n", settings->dimX);
     fprintf(fp, "Y dimension: %i\n", settings->dimY);

@@ -22,6 +22,10 @@ typedef struct
     Vector2* velocities;
     Vector2* accelerations;
 
+    Vector2* centralLocations;
+
+    int attractionScalar;
+
     MedicalComponent* medComponents;
 } SpreadSimulator;
 

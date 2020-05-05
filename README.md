@@ -21,7 +21,8 @@ Image made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot) and
 <p align="center">
 Completely rewrote original code to be more readable<br>
 <b>Implemented Quadtree</b>  <br>
-<br>Supports way larger amount of entities now
+<br>Supports way larger amount of entities now<br>
+Now support central locations people gather at
 <br><br>
 <i>Some function definitions and struct names changed, you might need to update your code</i>
 </p>
@@ -53,6 +54,7 @@ SimulationSettings settings = createSettings(
         50,     /*detection chance, chance of an infected being found upon testing*/
         5,      /*radius of influence (in pixels)*/
         true,   /*enable active distancing*/
+        4,      /*amount of central locations*/
         600,    /*Area of movement width*/
         600);   /*Area of movement height*/
 ```
@@ -106,3 +108,4 @@ The hospital capacity(hospital capacity) determines how many hospital slots are 
 Each tick a number of random entities(tests per tick) will be tested and detected using a certain probability(detection chance).  
 In the case of an entity getting a positive test result, meaning he will be hospitalized, he won't be able to move anymore and its chance of surviving is set to 90%.
 If active social distancing is set to true, the entities will try actively try to avoid each other.
+Randomly placed central locations attract entities during opening hours and repell them during closing time.

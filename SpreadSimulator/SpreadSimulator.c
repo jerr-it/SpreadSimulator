@@ -17,6 +17,10 @@ SpreadSimulator createSimulator(SimulationSettings* settings)
     simulator.accelerations = (Vector2*) calloc(settings->entityCount, sizeof(Vector2));
     simulator.medComponents = (MedicalComponent*) calloc(settings->entityCount, sizeof(MedicalComponent));
 
+    simulator.centralLocations = (Vector2*) calloc(settings->centralLocationsCount, sizeof(Vector2));
+
+    simulator.attractionScalar = 1;
+
     for (int i = 0; i < settings->entityCount; i++)
     {
         //Generate random position in confined space
@@ -40,8 +44,15 @@ SpreadSimulator createSimulator(SimulationSettings* settings)
         bool infected = (i < simulator.settings.initialInfected);
 
         simulator.medComponents[i] = createMedicalComponent(infected, mobile, settings->infectionChance,
-                                                             settings->survivalChance, settings->detectionChance,
-                                                             settings->influenceRadius);
+                                                            settings->survivalChance, settings->detectionChance,
+                                                            settings->influenceRadius);
+    }
+
+    for (int i = 0; i < settings->centralLocationsCount; i++)
+    {
+        double xPos = rand() % settings->dimX;
+        double yPos = rand() % settings->dimY;
+        simulator.centralLocations[i] = createVector(xPos, yPos);
     }
 
     return simulator;
@@ -63,6 +74,35 @@ void tick(SpreadSimulator* simulator)
         PositionIndexPair pair = (PositionIndexPair) {i, (Vector2) {simulator->positions[i].x,
                                                                     simulator->positions[i].y}};
         bool success = insert(tree, pair);
+    }
+
+    //'Closing and opening' central locations
+    if (simulator->stats.tick % 240 == 0)
+    {
+        simulator->attractionScalar *= -1;
+    }
+
+    //Central locations attraction calculation
+    for (int i = 0; i < simulator->settings.centralLocationsCount; i++)
+    {
+        tmp_vec_1 = createVector(simulator->centralLocations[i].x, simulator->centralLocations[i].y);
+        tmp_vec_2 = createVector(100, 100);
+        Rect range = createRect(&tmp_vec_1, &tmp_vec_2);
+
+        PositionIndexPairList query = queryRange(tree, &range);
+
+        for (int qIndex = 0; qIndex < query.count; qIndex++)
+        {
+            int entityIndex = query.data[qIndex].index;
+
+            Vector2 attraction = createVector(simulator->centralLocations[i].x - simulator->positions[entityIndex].x,
+                                              simulator->centralLocations[i].y - simulator->positions[entityIndex].y);
+
+
+            scaleVector(&attraction, simulator->attractionScalar);
+            scaleVector(&attraction, 0.05); //arbitrary value, no specific choice
+            addVector(&simulator->accelerations[entityIndex], &attraction);
+        }
     }
 
     //Loop over every entity
@@ -101,6 +141,9 @@ void tick(SpreadSimulator* simulator)
 
                     if (i == j) continue;
 
+                    //No need to insert if they're already dead
+                    if (simulator->medComponents[j].isDead) continue;
+
                     Vector2 repulsion = createVector(
                             simulator->positions[i].x - simulator->positions[j].x,
                             simulator->positions[i].y - simulator->positions[j].y
@@ -112,9 +155,6 @@ void tick(SpreadSimulator* simulator)
 
                 //free query
                 freeList(query);
-
-                //Prevent entities gaining too much speed
-                limitVector(&simulator->velocities[i], 1);
             }
         }
 
@@ -127,7 +167,7 @@ void tick(SpreadSimulator* simulator)
             //Calculate infection from them
             tmp_vec_1 = createVector(simulator->positions[i].x, simulator->positions[i].y);
             tmp_vec_2 = createVector(simulator->medComponents[i].infectionRadius,
-                                               simulator->medComponents[i].infectionRadius);
+                                     simulator->medComponents[i].infectionRadius);
             Rect range = createRect(&tmp_vec_1, &tmp_vec_2);
 
             PositionIndexPairList query = queryRange(tree, &range);
@@ -175,6 +215,8 @@ void tick(SpreadSimulator* simulator)
                 }
             }
         }
+        //Prevent entities gaining too much speed
+        limitVector(&simulator->velocities[i], 1);
     }
 
     freeQuadtree(tree);
@@ -215,7 +257,8 @@ void printStats(SpreadSimulator* simulator)
            simulator->stats.hospitalized);
 }
 
-void printStatsRaw(SpreadSimulator* simulator){
+void printStatsRaw(SpreadSimulator* simulator)
+{
     printf("%i %i %i %i %i %i\n",
            simulator->stats.tick,
            simulator->stats.susceptible,
@@ -270,6 +313,7 @@ void dehospitalizeEvent(SpreadSimulator* simulator, int index)
 {
     simulator->stats.hospitalized--;
     simulator->medComponents[index].isInHospital = false;
+    simulator->medComponents[index].isMobile = true;
 }
 
 void cleanup(SpreadSimulator* simulator)
@@ -278,5 +322,6 @@ void cleanup(SpreadSimulator* simulator)
     free(simulator->velocities);
     free(simulator->accelerations);
     free(simulator->medComponents);
+    free(simulator->centralLocations);
 }
 
