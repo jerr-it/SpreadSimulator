@@ -1,29 +1,29 @@
 #include "SimulationSettings.h"
 
-SimulationSettings*
+SimulationSettings
 createSettings(int EntityCount, int InitialInfected, int InitialMobile, int HospitalCapacity, int TestsPerTick,
                int TicksUntilExpiration, int InfectionChance, int SurvivalChance, int DetectionChance,
                double InfluenceRadius, bool ActiveDistancing, int DimX, int DimY)
 {
-    SimulationSettings* settings = (SimulationSettings*) calloc(1, sizeof(SimulationSettings));
+    SimulationSettings settings;
 
-    settings->entityCount = EntityCount;
-    settings->initialInfected = InitialInfected;
-    settings->mobileCount = InitialMobile;
+    settings.entityCount = EntityCount;
+    settings.initialInfected = InitialInfected;
+    settings.mobileCount = InitialMobile;
 
-    settings->hospitalCapacity = HospitalCapacity;
-    settings->testsPerTick = TestsPerTick;
-    settings->ticksUntilExpiration = TicksUntilExpiration;
+    settings.hospitalCapacity = HospitalCapacity;
+    settings.testsPerTick = TestsPerTick;
+    settings.ticksUntilExpiration = TicksUntilExpiration;
 
-    settings->infectionChance = InfectionChance;
-    settings->survivalChance = SurvivalChance;
-    settings->detectionChance = DetectionChance;
+    settings.infectionChance = InfectionChance;
+    settings.survivalChance = SurvivalChance;
+    settings.detectionChance = DetectionChance;
 
-    settings->influenceRadius = InfluenceRadius;
-    settings->activeDistancing = ActiveDistancing;
+    settings.influenceRadius = InfluenceRadius;
+    settings.activeDistancing = ActiveDistancing;
 
-    settings->dimX = DimX;
-    settings->dimY = DimY;
+    settings.dimX = DimX;
+    settings.dimY = DimY;
 
     return settings;
 }

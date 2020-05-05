@@ -1,11 +1,11 @@
 #include "Vector2.h"
 
-Vector2* createVector(double x, double y)
+Vector2 createVector(double x, double y)
 {
-    Vector2* vec = (Vector2*) calloc(1, sizeof(Vector2));
+    Vector2 vec;
 
-    vec->x = x;
-    vec->y = y;
+    vec.x = x;
+    vec.y = y;
 
     return vec;
 }

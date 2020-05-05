@@ -10,17 +10,15 @@ extern "C" {
 
 typedef struct
 {
-    Vector2* center;
-    Vector2* halfDim;
+    Vector2 center;
+    Vector2 halfDim;
 } Rect;
 
-Rect* createRect(Vector2* center, Vector2* halfdim);
+Rect createRect(Vector2* center, Vector2* halfdim);
 
 bool containsPoint(Rect* rect, Vector2* point);
 
 bool intersects(Rect* a, Rect* b);
-
-void freeRect(Rect* r);
 
 #ifdef __cplusplus
 }

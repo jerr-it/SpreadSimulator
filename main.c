@@ -4,7 +4,7 @@
 
 int main()
 {
-    SimulationSettings* settings = createSettings(
+    SimulationSettings settings = createSettings(
             5000,
             5,
             850,
@@ -25,21 +25,21 @@ int main()
     //Export to a human readable format:
     //exportSettings(settings, "exportSettings.txt");
 
-    SpreadSimulator* simulator = createSimulator(settings);
+    SpreadSimulator simulator = createSimulator(&settings);
 
     clock_t start, end;
 
     for (int i = 0; i < 10000; i++)
     {
         //start = clock();
-        tick(simulator);
+        tick(&simulator);
         //end = clock();
 
         //fprintf(stdout, "%ld\n", (end - start));
-        printStats(simulator);
+        printStats(&simulator);
     }
 
-    cleanup(simulator);
+    cleanup(&simulator);
 
     return 0;
 }

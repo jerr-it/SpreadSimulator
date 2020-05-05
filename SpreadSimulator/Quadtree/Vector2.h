@@ -14,7 +14,7 @@ typedef struct
     double y;
 } Vector2;
 
-Vector2* createVector(double x, double y);
+Vector2 createVector(double x, double y);
 
 void addVector(Vector2* a, Vector2* b);
 
@@ -27,8 +27,6 @@ void limitVector(Vector2* a, double limit);
 void normalizeVector(Vector2* a);
 
 double distSq(Vector2* a, Vector2* b);
-
-void freeVector(Vector2* v);
 
 #ifdef __cplusplus
 }

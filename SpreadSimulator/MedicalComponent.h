@@ -25,7 +25,7 @@ typedef struct
     double infectionRadius;
 } MedicalComponent;
 
-MedicalComponent*
+MedicalComponent
 createMedicalComponent(bool infected, bool mobile, int infChance, int survChance, int detectChance, double infRadius);
 
 #ifdef __cplusplus

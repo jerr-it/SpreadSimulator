@@ -12,9 +12,9 @@ extern "C" {
 
 typedef struct Quadtree
 {
-    Rect* boundary;
+    Rect boundary;
 
-    PositionIndexPair* ipPairs;
+    PositionIndexPair ipPairs[NODE_CAPACITY];
     int ipPairsSize;
 
     struct Quadtree* northWest;

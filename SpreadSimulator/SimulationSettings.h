@@ -30,7 +30,7 @@ typedef struct
     int dimY;
 } SimulationSettings;
 
-SimulationSettings*
+SimulationSettings
 createSettings(int EntityCount, int InitialInfected, int InitialMobile, int HospitalCapacity, int TestsPerTick,
                int TicksUntilExpiration, int InfectionChance, int SurvivalChance, int DetectionChance,
                double InfluenceRadius, bool ActiveDistancing, int DimX, int DimY);

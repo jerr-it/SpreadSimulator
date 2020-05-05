@@ -21,7 +21,7 @@ typedef struct
     int hospitalized;
 } SimulatorStats;
 
-SimulatorStats* createStats(int Susceptible, int Infected);
+SimulatorStats createStats(int Susceptible, int Infected);
 
 #ifdef __cplusplus
 }

@@ -1,23 +1,23 @@
 #include "MedicalComponent.h"
 
-MedicalComponent*
+MedicalComponent
 createMedicalComponent(bool infected, bool mobile, int infChance, int survChance, int detectChance, double infRadius)
 {
-    MedicalComponent* component = (MedicalComponent*) calloc(1, sizeof(MedicalComponent));
+    MedicalComponent component ;
 
-    component->ticksSinceInfection = 0;
+    component.ticksSinceInfection = 0;
 
-    component->infectionChance = infChance;
-    component->survivalChance = survChance;
-    component->detectionChance = detectChance;
+    component.infectionChance = infChance;
+    component.survivalChance = survChance;
+    component.detectionChance = detectChance;
 
-    component->isInfected = infected;
-    component->isMobile = mobile;
-    component->isCured = false;
-    component->isDead = false;
-    component->isInHospital = false;
+    component.isInfected = infected;
+    component.isMobile = mobile;
+    component.isCured = false;
+    component.isDead = false;
+    component.isInHospital = false;
 
-    component->infectionRadius = infRadius;
+    component.infectionRadius = infRadius;
 
     return component;
 }
