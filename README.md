@@ -29,6 +29,7 @@ Now support central locations people gather at
 
 <h2 align="center">How to use</h2>
 
+Documentation can be found at: https://cherrysrc.github.io/SpreadSimulator/
 Compile repo:
 ```
 cmake .
