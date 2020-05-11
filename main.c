@@ -1,3 +1,17 @@
+/**
+ * @file
+ * Demonstrating the usage of SpreadSimulator
+ *
+ * @author cherrysrc
+ * @date 11.05.2020
+ * @copyright MIT-License
+ */
+
+/**
+ * \mainpage SpreadSimulator Home
+ * https://github.com/cherrysrc/SpreadSimulator
+ */
+
 #include "SpreadSimulator/SpreadSimulator.h"
 
 #include <time.h>

@@ -41,8 +41,3 @@ double getMagnitude(Vector2* a)
 {
     return sqrt(a->x * a->x + a->y * a->y);
 }
-
-double distSq(Vector2* a, Vector2* b)
-{
-    return (a->x - b->x) * (a->x - b->x) + (a->y - b->y) * (a->y - b->y);
-}

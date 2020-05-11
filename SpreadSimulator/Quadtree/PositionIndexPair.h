@@ -1,3 +1,12 @@
+/**
+ * @file
+ * Struct holding a position and an index
+ *
+ * @author cherrysrc
+ * @data 11.05.2020
+ * @copyright MIT-License
+ */
+
 #ifndef SPREADSIMREVIVED_POSITIONINDEXPAIR_H
 #define SPREADSIMREVIVED_POSITIONINDEXPAIR_H
 
@@ -7,6 +16,10 @@ extern "C" {
 
 #include "Vector2.h"
 
+/**
+ * @struct PositionIndexPair
+ * @brief Struct holding a position and an index
+ */
 typedef struct
 {
     int index;
