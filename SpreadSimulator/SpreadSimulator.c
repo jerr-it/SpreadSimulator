@@ -103,6 +103,8 @@ void tick(SpreadSimulator* simulator)
             scaleVector(&attraction, 0.05); //arbitrary value, no specific choice
             addVector(&simulator->accelerations[entityIndex], &attraction);
         }
+
+        freeList(query);
     }
 
     //Loop over every entity

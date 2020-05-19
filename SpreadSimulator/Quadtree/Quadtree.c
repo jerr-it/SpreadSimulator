@@ -107,7 +107,7 @@ PositionIndexPairList queryRange(Quadtree* tree, Rect* range) {
 }
 
 void freeQuadtree(Quadtree* tree) {
-  if (tree)
+  if (!tree)
     return;
   freeQuadtree(tree->northWest);
   freeQuadtree(tree->northEast);
