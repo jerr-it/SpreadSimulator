@@ -3,7 +3,7 @@
  * Statistics for simulations
  *
  * @author cherrysrc
- * @data 11.05.2020
+ * @data 19.05.2020
  * @copyright MIT-License
  */
 
@@ -31,6 +31,9 @@ typedef struct
     int dead;
 
     int hospitalized;
+
+    float basicReproductionNumber; //R0
+    float effectiveReproductionNumber; //Re
 } SimulatorStats;
 
 /**

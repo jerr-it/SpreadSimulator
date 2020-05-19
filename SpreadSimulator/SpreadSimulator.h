@@ -3,7 +3,7 @@
  * Main file concerning the simulation, holds the SpreadSimulator struct
  *
  * @author cherrysrc
- * @date 11.05.2020
+ * @date 19.05.2020
  * @copyright MIT-License
  */
 
@@ -41,8 +41,6 @@ typedef struct
 
     /** Array of central locations*/
     Vector2* centralLocations;
-    /** Variable to simulate opening and closing of central locations*/
-    int attractionScalar;
 } SpreadSimulator;
 
 /**

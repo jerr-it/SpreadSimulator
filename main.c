@@ -19,19 +19,19 @@
 int main()
 {
     SimulationSettings settings = createSettings(
-        5000,
-        5,
-        850,
-        200,
-        50,
-        450,
-        20,
-        50,
-        50,
-        5,
-        true,
-        4,
-        600, 600);
+            5000,
+            5,
+            850,
+            200,
+            50,
+            450,
+            20,
+            50,
+            50,
+            5,
+            true,
+            4,
+            600, 600);
 
     //Save and load settings of binary format
     //SimulationSettings* settings = loadSettings("settings.bin");
@@ -56,5 +56,5 @@ int main()
 
     cleanup(&simulator);
 
-    return(0);
+    return (0);
 }

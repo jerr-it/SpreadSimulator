@@ -2,7 +2,7 @@
 
 SimulatorStats createStats(int susceptible, int infected)
 {
-    SimulatorStats stats ;
+    SimulatorStats stats;
 
     stats.tick = 0;
 
@@ -13,6 +13,9 @@ SimulatorStats createStats(int susceptible, int infected)
     stats.dead = 0;
 
     stats.hospitalized = 0;
+
+    stats.basicReproductionNumber = 0;
+    stats.effectiveReproductionNumber = 0;
 
     return stats;
 }

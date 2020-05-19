@@ -19,8 +19,6 @@ SpreadSimulator createSimulator(SimulationSettings* settings)
 
     simulator.centralLocations = (Vector2*) calloc(settings->centralLocationsCount, sizeof(Vector2));
 
-    simulator.attractionScalar = 1;
-
     for (int i = 0; i < settings->entityCount; i++)
     {
         //Generate random position in confined space
@@ -76,10 +74,12 @@ void tick(SpreadSimulator* simulator)
         bool success = insert(tree, pair);
     }
 
-    //'Closing and opening' central locations
+    //For controlling the direction of force exerted by central locations
+    static int attractionScalar = 1;
+    //'Closing and opening' central locations every 240 ticks
     if (simulator->stats.tick % 240 == 0)
     {
-        simulator->attractionScalar *= -1;
+        attractionScalar *= -1;
     }
 
     //Central locations attraction calculation
@@ -99,13 +99,21 @@ void tick(SpreadSimulator* simulator)
                                               simulator->centralLocations[i].y - simulator->positions[entityIndex].y);
 
 
-            scaleVector(&attraction, simulator->attractionScalar);
+            scaleVector(&attraction, attractionScalar);
             scaleVector(&attraction, 0.05); //arbitrary value, no specific choice
             addVector(&simulator->accelerations[entityIndex], &attraction);
         }
 
         freeList(query);
     }
+
+    //For averaging
+    static float cumulativeR0 = 0;
+    static float cumulativeRe = 0;
+
+    //Counting infections, needed for R0
+    int totalInfections = 0;
+    int currentInfectedCount = simulator->stats.infected;
 
     //Loop over every entity
     for (int i = 0; i < simulator->settings.entityCount; i++)
@@ -189,6 +197,7 @@ void tick(SpreadSimulator* simulator)
                 int rng = rand() % 100 + 1;
                 if (rng <= simulator->medComponents[i].infectionChance)
                 {
+                    totalInfections++;
                     infectionEvent(simulator, j);
                 }
             }
@@ -223,6 +232,33 @@ void tick(SpreadSimulator* simulator)
 
     freeQuadtree(tree);
 
+    //Calculate basic reproduction number and effective reproduction number
+    //https://en.wikipedia.org/wiki/Basic_reproduction_number
+
+    //Number of contacts per infected (averaged over all infected)
+    float transmissionRate = (float) totalInfections / ((float) currentInfectedCount + 1);
+    //Time an entity is infective
+    float infectiveTime = (float) simulator->settings.ticksUntilExpiration;
+
+    cumulativeR0 += transmissionRate * infectiveTime;
+
+    //Calculate effective reproduction number
+    float susceptiblePercentage = (float) simulator->stats.susceptible / (float) simulator->settings.entityCount;
+
+    cumulativeRe += transmissionRate * infectiveTime * susceptiblePercentage;
+
+    //Averaging R0 and Re over 20 ticks
+    if (simulator->stats.tick % 20 == 0)
+    {
+        //Save values in stats member var
+        simulator->stats.basicReproductionNumber = cumulativeR0 / 20.0f;
+        simulator->stats.effectiveReproductionNumber = cumulativeRe / 20.0f;
+
+        //Reset
+        cumulativeR0 = 0;
+        cumulativeRe = 0;
+    }
+
     //Perform tests on random entities
     for (int i = 0; i < simulator->settings.testsPerTick; i++)
     {
@@ -252,20 +288,24 @@ void tick(SpreadSimulator* simulator)
 
 void printStats(SpreadSimulator* simulator)
 {
-    printf("Tick: %i, Susceptible: %i, Infected: %i, Cured: %i, Dead: %i, Hospitalized: %i\n",
+    printf("Tick: %i, Susceptible: %i, Infected: %i, Cured: %i, Dead: %i, Hospitalized: %i, R0: %.2f, Re: %.2f\n",
            simulator->stats.tick,
            simulator->stats.susceptible,
            simulator->stats.infected, simulator->stats.cured, simulator->stats.dead,
-           simulator->stats.hospitalized);
+           simulator->stats.hospitalized,
+           simulator->stats.basicReproductionNumber,
+           simulator->stats.effectiveReproductionNumber);
 }
 
 void printStatsRaw(SpreadSimulator* simulator)
 {
-    printf("%i %i %i %i %i %i\n",
+    printf("%i %i %i %i %i %i %.2f, %.2f\n",
            simulator->stats.tick,
            simulator->stats.susceptible,
            simulator->stats.infected, simulator->stats.cured, simulator->stats.dead,
-           simulator->stats.hospitalized);
+           simulator->stats.hospitalized,
+           simulator->stats.basicReproductionNumber,
+           simulator->stats.effectiveReproductionNumber);
 }
 
 //Functions for 'events'
