@@ -1,0 +1,15 @@
+cmake-build-debug
+Doxyfile
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CMakeFiles
+SpreadSimulator/libSpreadSimulator.a
+SpreadSimulator/Quadtree/libQuadtree.a
+SpreadSimulator/cmake_install.cmake
+SpreadSimulator/CMakeFiles
+SpreadSimulator/MakeFile
+SpreadSimulator/Quadtree/cmake_install.cmake
+SpreadSimulator/Quadtree/CMakeFiles
+SpreadSimulator/Quadtree/MakeFile
+SpreadSimulation
