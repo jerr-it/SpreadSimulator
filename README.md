@@ -20,7 +20,7 @@ Image made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot) and
 
 <p align="center">
 Completely rewrote original code to be more readable<br>
-<b>Implemented Quadtree</b>  <br>
+<b>Implemented Quadtree and Multithreading</b>  <br>
 <br>Supports way larger amount of entities now<br>
 Now support central locations people gather at
 <br><br>
@@ -66,7 +66,8 @@ SimulationSettings settings = *loadSettings("settings.bin");
 
 Create a SpreadSimulator:
 ```c
-SpreadSimulator simulator = createSimulator(&settings);
+//Second argument is the number of threads to be used by the simulator
+SpreadSimulator simulator = createSimulator(&settings, 4);
 ```  
 The values related to a probability should be between 0-100.  
 Run the simulator by one step using
