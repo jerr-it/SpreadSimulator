@@ -97,28 +97,13 @@ Public Attributes</h2></td></tr>
 <tr class="separator:adcd071037edf44345c534c0c2e333d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e8c3482129fdab0b9bc04668724c074"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector2.html">Vector2</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSpreadSimulator.html#a4e8c3482129fdab0b9bc04668724c074">centralLocations</a></td></tr>
 <tr class="separator:a4e8c3482129fdab0b9bc04668724c074"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5df85290f104fe6552fb12214fe57c6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSpreadSimulator.html#ac5df85290f104fe6552fb12214fe57c6">attractionScalar</a></td></tr>
-<tr class="separator:ac5df85290f104fe6552fb12214fe57c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecc1118695e91e256d8dd80fd06edb3f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSpreadSimulator.html#aecc1118695e91e256d8dd80fd06edb3f">threadCount</a></td></tr>
+<tr class="separator:aecc1118695e91e256d8dd80fd06edb3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Central structure containing all simulation related variables<br  />
 Struct organizes entities in an ECS styled manner. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="ac5df85290f104fe6552fb12214fe57c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5df85290f104fe6552fb12214fe57c6">&#9670;&nbsp;</a></span>attractionScalar</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpreadSimulator::attractionScalar</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Variable to simulate opening and closing of central locations </p>
-
-</div>
-</div>
 <a id="a4e8c3482129fdab0b9bc04668724c074"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e8c3482129fdab0b9bc04668724c074">&#9670;&nbsp;</a></span>centralLocations</h2>
 
@@ -161,6 +146,21 @@ Struct organizes entities in an ECS styled manner. </p>
       </table>
 </div><div class="memdoc">
 <p>Keeping track of numbers, e.g. count of infected, cured etc. </p>
+
+</div>
+</div>
+<a id="aecc1118695e91e256d8dd80fd06edb3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecc1118695e91e256d8dd80fd06edb3f">&#9670;&nbsp;</a></span>threadCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SpreadSimulator::threadCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Specifying the number of threads used </p>
 
 </div>
 </div>

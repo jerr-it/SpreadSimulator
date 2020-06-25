@@ -50,8 +50,8 @@ int main()
         tick(&simulator);
         //end = clock();
 
-        //fprintf(stdout, "%ld\n", (end - start));
-        printStats(&simulator);
+        fprintf(stdout, "%ld\n", (end - start));
+        //printStats(&simulator);
     }
 
     cleanup(&simulator);

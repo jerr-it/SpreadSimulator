@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['attractionscalar_114',['attractionScalar',['../structSpreadSimulator.html#ac5df85290f104fe6552fb12214fe57c6',1,'SpreadSimulator']]]
+  ['centrallocations_118',['centralLocations',['../structSpreadSimulator.html#a4e8c3482129fdab0b9bc04668724c074',1,'SpreadSimulator']]]
 ];

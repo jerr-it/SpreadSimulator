@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['centrallocations_115',['centralLocations',['../structSpreadSimulator.html#a4e8c3482129fdab0b9bc04668724c074',1,'SpreadSimulator']]]
+  ['settings_119',['settings',['../structSpreadSimulator.html#ab0861579170948167ed0d3e9ca878b7b',1,'SpreadSimulator']]],
+  ['stats_120',['stats',['../structSpreadSimulator.html#a7360893fbc69f717242e864f2686ea17',1,'SpreadSimulator']]]
 ];

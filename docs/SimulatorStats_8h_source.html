@@ -92,17 +92,20 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">int</span> dead;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">int</span> hospitalized;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <a class="code" href="structSimulatorStats.html">SimulatorStats</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<a class="code" href="structSimulatorStats.html">SimulatorStats</a> <a class="code" href="SimulatorStats_8h.html#a9bbef416884134c4de908ce3981cfde6">createStats</a>(<span class="keywordtype">int</span> Susceptible, <span class="keywordtype">int</span> Infected);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif //SPREADSIMREVIVED_SIMULATORSTATS_H</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">float</span> basicReproductionNumber; <span class="comment">//R0</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">float</span> effectiveReproductionNumber; <span class="comment">//Re</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <a class="code" href="structSimulatorStats.html">SimulatorStats</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<a class="code" href="structSimulatorStats.html">SimulatorStats</a> <a class="code" href="SimulatorStats_8h.html#a9bbef416884134c4de908ce3981cfde6">createStats</a>(<span class="keywordtype">int</span> Susceptible, <span class="keywordtype">int</span> Infected);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif //SPREADSIMREVIVED_SIMULATORSTATS_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aSpreadSimulator_8h_html_a1d5b66cb4a06f0748a55c28b190479e8"><div class="ttname"><a href="SpreadSimulator_8h.html#a1d5b66cb4a06f0748a55c28b190479e8">tick</a></div><div class="ttdeci">void tick(SpreadSimulator *simulator)</div><div class="ttdef"><b>Definition:</b> SpreadSimulator.c:61</div></div>
+<div class="ttc" id="aSpreadSimulator_8h_html_a1d5b66cb4a06f0748a55c28b190479e8"><div class="ttname"><a href="SpreadSimulator_8h.html#a1d5b66cb4a06f0748a55c28b190479e8">tick</a></div><div class="ttdeci">void tick(SpreadSimulator *simulator)</div><div class="ttdef"><b>Definition:</b> SpreadSimulator.c:60</div></div>
 <div class="ttc" id="astructSimulatorStats_html"><div class="ttname"><a href="structSimulatorStats.html">SimulatorStats</a></div><div class="ttdoc">Struct holding all information of statistical value.</div><div class="ttdef"><b>Definition:</b> SimulatorStats.h:24</div></div>
 <div class="ttc" id="aSimulatorStats_8h_html_a9bbef416884134c4de908ce3981cfde6"><div class="ttname"><a href="SimulatorStats_8h.html#a9bbef416884134c4de908ce3981cfde6">createStats</a></div><div class="ttdeci">SimulatorStats createStats(int Susceptible, int Infected)</div><div class="ttdef"><b>Definition:</b> SimulatorStats.c:3</div></div>
 <!-- start footer part -->

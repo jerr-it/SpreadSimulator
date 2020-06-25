@@ -80,6 +80,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="SimulatorStats_8h_source.html">SimulatorStats.h</a>&quot;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;threads.h&gt;</code><br />
 </div>
 <p><a href="SpreadSimulator_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -89,17 +90,22 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Central structure containing all simulation related variables<br  />
 Struct organizes entities in an ECS styled manner.  <a href="structSpreadSimulator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structThreadData.html">ThreadData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">data structure containing information used for multithreading  <a href="structThreadData.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abe6a72d9c53963c6cca7609db66fe476"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSpreadSimulator.html">SpreadSimulator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SpreadSimulator_8h.html#abe6a72d9c53963c6cca7609db66fe476">createSimulator</a> (<a class="el" href="structSimulationSettings.html">SimulationSettings</a> *settings)</td></tr>
-<tr class="separator:abe6a72d9c53963c6cca7609db66fe476"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf51e8cb6f31a7938f77685bc999f971"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSpreadSimulator.html">SpreadSimulator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SpreadSimulator_8h.html#abf51e8cb6f31a7938f77685bc999f971">createSimulator</a> (<a class="el" href="structSimulationSettings.html">SimulationSettings</a> *settings, int thread_count)</td></tr>
+<tr class="separator:abf51e8cb6f31a7938f77685bc999f971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf9e5df7de0ab7302e4da4b972d65531"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SpreadSimulator_8h.html#adf9e5df7de0ab7302e4da4b972d65531">printStats</a> (<a class="el" href="structSpreadSimulator.html">SpreadSimulator</a> *simulator)</td></tr>
 <tr class="separator:adf9e5df7de0ab7302e4da4b972d65531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1db8ebe4a5868a37e4cbee2b83d00cb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SpreadSimulator_8h.html#a1db8ebe4a5868a37e4cbee2b83d00cb1">printStatsRaw</a> (<a class="el" href="structSpreadSimulator.html">SpreadSimulator</a> *simulator)</td></tr>
 <tr class="separator:a1db8ebe4a5868a37e4cbee2b83d00cb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d5b66cb4a06f0748a55c28b190479e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SpreadSimulator_8h.html#a1d5b66cb4a06f0748a55c28b190479e8">tick</a> (<a class="el" href="structSpreadSimulator.html">SpreadSimulator</a> *simulator)</td></tr>
 <tr class="separator:a1d5b66cb4a06f0748a55c28b190479e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46185c33e41e6e38624681562634e67c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SpreadSimulator_8h.html#a46185c33e41e6e38624681562634e67c">updateEntityRange</a> (void *threaddata)</td></tr>
+<tr class="separator:a46185c33e41e6e38624681562634e67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac36b3eac5681fd29935f0e828bc274a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SpreadSimulator_8h.html#aac36b3eac5681fd29935f0e828bc274a">tickEvent</a> (<a class="el" href="structSpreadSimulator.html">SpreadSimulator</a> *simulator)</td></tr>
 <tr class="separator:aac36b3eac5681fd29935f0e828bc274a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b308f3b395df1885c0ca1b664b14a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SpreadSimulator_8h.html#a9b308f3b395df1885c0ca1b664b14a4b">infectionEvent</a> (<a class="el" href="structSpreadSimulator.html">SpreadSimulator</a> *simulator, int index)</td></tr>
@@ -118,7 +124,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main file concerning the simulation, holds the <a class="el" href="structSpreadSimulator.html" title="Central structure containing all simulation related variables Struct organizes entities in an ECS sty...">SpreadSimulator</a> struct</p>
 <dl class="section author"><dt>Author</dt><dd>cherrysrc </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>11.05.2020 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>19.05.2020 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>MIT-License </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="abc61a62ba4094be451fd883f86b80a01"></a>
@@ -146,8 +152,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="abe6a72d9c53963c6cca7609db66fe476"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe6a72d9c53963c6cca7609db66fe476">&#9670;&nbsp;</a></span>createSimulator()</h2>
+<a id="abf51e8cb6f31a7938f77685bc999f971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf51e8cb6f31a7938f77685bc999f971">&#9670;&nbsp;</a></span>createSimulator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,19 +162,29 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="structSpreadSimulator.html">SpreadSimulator</a> createSimulator </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSimulationSettings.html">SimulationSettings</a> *&#160;</td>
-          <td class="paramname"><em>settings</em></td><td>)</td>
+          <td class="paramname"><em>settings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>thread_count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a spread simulator from given settings</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Creates a new simulator </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">settings</td><td>settings for the simulator </td></tr>
+    <tr><td class="paramname">settings</td><td>settings object </td></tr>
+    <tr><td class="paramname">thread_count</td><td>number of threads to be used </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the simulator object </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new simulator </dd></dl>
 
 </div>
 </div>
@@ -463,6 +479,31 @@ Meant for internal use only, user should not call this directly</p>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a46185c33e41e6e38624681562634e67c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46185c33e41e6e38624681562634e67c">&#9670;&nbsp;</a></span>updateEntityRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int updateEntityRange </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>threaddata</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Updates a given segment of entities </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">threaddata</td><td>data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>number of people infected in this iteration </dd></dl>
 
 </div>
 </div>
