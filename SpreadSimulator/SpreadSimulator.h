@@ -21,6 +21,7 @@ extern "C" {
 
 #include <time.h>
 #include <stdio.h>
+#include <threads.h>
 
 /**
  * @struct SpreadSimulator
@@ -32,24 +33,38 @@ typedef struct
     /** Settings for the simulation*/
     SimulationSettings settings;
     /** Keeping track of numbers, e.g. count of infected, cured etc.*/
-    SimulatorStats stats;
+    SimulatorStats     stats;
 
-    Vector2* positions;
-    Vector2* velocities;
-    Vector2* accelerations;
-    MedicalComponent* medComponents;
+    Vector2*           positions;
+    Vector2*           velocities;
+    Vector2*           accelerations;
+    MedicalComponent*  medComponents;
 
     /** Array of central locations*/
-    Vector2* centralLocations;
+    Vector2*           centralLocations;
+    /** Specifying the number of threads used*/
+    int threadCount;
 } SpreadSimulator;
 
 /**
- * Create a spread simulator from given settings
- *
- * @param settings settings for the simulator
- * @return the simulator object
+ * @struct ThreadData
+ * @brief data structure containing information used for multithreading
  */
-SpreadSimulator createSimulator(SimulationSettings* settings);
+typedef struct
+{
+    SpreadSimulator* simulator;
+    Quadtree*        tree;
+    int              startIndex;
+    int              endIndex;
+}ThreadData;
+
+/**
+ * Creates a new simulator
+ * @param settings settings object
+ * @param thread_count number of threads to be used
+ * @return new simulator
+ */
+SpreadSimulator createSimulator(SimulationSettings* settings, int thread_count);
 
 /**
  * Printing stats in a human-readable format
@@ -73,6 +88,13 @@ void printStatsRaw(SpreadSimulator* simulator);
  * @param simulator the desired simulator object
  */
 void tick(SpreadSimulator* simulator);
+
+/**
+ * Updates a given segment of entities
+ * @param threaddata data
+ * @return number of people infected in this iteration
+ */
+int updateEntityRange(void* threaddata);
 
 /**
  * Event function of a tick\n

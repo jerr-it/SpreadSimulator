@@ -21,9 +21,9 @@ int main()
     SimulationSettings settings = createSettings(
             5000,
             5,
-            850,
+            4750,
             200,
-            50,
+            10,
             450,
             20,
             50,
@@ -40,7 +40,7 @@ int main()
     //Export to a human readable format:
     //exportSettings(settings, "exportSettings.txt");
 
-    SpreadSimulator simulator = createSimulator(&settings);
+    SpreadSimulator simulator = createSimulator(&settings, 4);
 
     clock_t start, end;
 

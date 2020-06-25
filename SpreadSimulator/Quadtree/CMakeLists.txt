@@ -12,4 +12,4 @@ set(HEADERS
         PositionIndexPairList.h
         )
 
-add_library(Quadtree ${SOURCES} ${HEADERS})
+add_library(Quadtree SHARED ${SOURCES} ${HEADERS})

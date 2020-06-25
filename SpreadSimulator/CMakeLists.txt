@@ -13,5 +13,5 @@ set(HEADERS
 
 add_subdirectory(Quadtree)
 
-add_library(SpreadSimulator ${SOURCES} ${HEADERS})
+add_library(SpreadSimulator SHARED ${SOURCES} ${HEADERS})
 target_link_libraries(SpreadSimulator Quadtree)
