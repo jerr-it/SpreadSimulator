@@ -12,29 +12,29 @@ A Simulation of the spread and containment of infections
 
 <p align="center">
     <img src="img/screenshot.png" width=900/>
-</div>
+</p>
 
 Image made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot) and SFML
+
+<p align="center">
+    <img src="img/gui.png" width=900>
+    <img src="img/stats.png" width=900>
+</p>
 
 <h2 align="center">Newest version</h2>
 
 <p align="center">
-Completely rewrote original code to be more readable<br>
-<b>Implemented Quadtree and Multithreading</b>  <br>
-<br>Supports way larger amount of entities now<br>
-Now support central locations people gather at
-<br><br>
-<i>Some function definitions and struct names changed, you might need to update your code</i>
+Now includes a <b>QT-GUI</b> to control simulation parameters<br>
+Planned GUI features: Live Simulation using my Graphics Library, Loading/Saving Configuration
 </p>
 
 <h2 align="center">How to use</h2>
 
 Documentation can be found at: https://cherrysrc.github.io/SpreadSimulator/
-Compile repo:
+Use repo:
 ```
-cmake .
-make SpreadSimulation
-./SpreadSimulation
+python compile.py
+python run.py
 ```
 
 Include Header:

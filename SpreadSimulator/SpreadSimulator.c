@@ -365,7 +365,7 @@ void printStats(SpreadSimulator* simulator)
 
 void printStatsRaw(SpreadSimulator* simulator)
 {
-    printf("%i %i %i %i %i %i %.2f, %.2f\n",
+    printf("%i %i %i %i %i %i %.2f %.2f\n",
            simulator->stats.tick,
            simulator->stats.susceptible,
            simulator->stats.infected, simulator->stats.cured, simulator->stats.dead,

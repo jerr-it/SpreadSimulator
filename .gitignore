@@ -13,4 +13,12 @@ SpreadSimulator/Quadtree/cmake_install.cmake
 SpreadSimulator/Quadtree/CMakeFiles
 SpreadSimulator/Quadtree/MakeFile
 SpreadSimulation
+SpreadSimGUI/.qmake.stash
+SpreadSimGUI/PandemiC
+SpreadSimGUI/main.o
+SpreadSimGUI/mainwindow.o
+SpreadSimGUI/moc_mainwindow.cpp
+SpreadSimGUI/moc_mainwindow.o
+SpreadSimGUI/moc_predefs.h
+SpreadSimGUI/ui_mainwindow.h
 .idea
