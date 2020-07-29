@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,6 +20,10 @@ public:
 private slots:
 
     void on_Button_Run_pressed();
+
+    void on_actionSave_Config_triggered();
+
+    void on_actionLoad_Config_triggered();
 
 private:
     Ui::MainWindow *ui;

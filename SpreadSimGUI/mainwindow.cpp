@@ -55,3 +55,122 @@ void MainWindow::on_Button_Run_pressed()
 
     system(cmd.c_str());
 }
+
+void MainWindow::on_actionSave_Config_triggered()
+{
+    QString filename = QFileDialog::getSaveFileName(this, "Save Config", "", "Config (*.cfg);;All Files(*)");
+    if(filename.isEmpty()){
+        return;
+    }
+
+    QFile file(filename);
+    if(!file.open(QIODevice::WriteOnly)){
+        QMessageBox::information(this, "Unable to save file", file.errorString());
+        return;
+    }
+
+    QDataStream out(&file);
+    out.setVersion(QDataStream::Qt_4_9);
+
+    out << ui->spinbox_entitycount->value();
+    out << ui->spinbox_initialinfected->value();
+    out << ui->spinbox_mobileentities->value();
+    out << ui->spinbox_hospitalcap->value();
+
+    out << ui->spinbox_testspertick->value();
+    out << ui->spinbox_ticksuntilexpiration->value();
+
+    out << ui->spinbox_infectionchance->value();
+    out << ui->spinbox_survivalchance->value();
+    out << ui->spinbox_detectionchance->value();
+
+    out << ui->spinbox_influenceradius->value();
+    out << ui->checkbox_distancing->isChecked();
+    out << ui->spinbox_centrallocations->value();
+
+    out << ui->spinbox_width->value();
+    out << ui->spinbox_height->value();
+    out << ui->spinbox_iterations->value();
+    out << ui->spinbox_threads->value();
+}
+
+void MainWindow::on_actionLoad_Config_triggered()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Save Config", "", "Config (*.cfg);;All Files(*)");
+
+    if(filename.isEmpty()){
+        return;
+    }
+
+    QFile file(filename);
+    if(!file.open(QIODevice::ReadOnly)){
+        QMessageBox::information(this, "Unable to open file", file.errorString());
+        return;
+    }
+
+    QDataStream in(&file);
+    in.setVersion(QDataStream::Qt_4_9);
+
+    int entCount;
+    int initInf;
+    int initMob;
+    int hospCap;
+
+    int tpt;
+    int tue;
+
+    double infChance;
+    double survChance;
+    double detectChance;
+
+    double infRadius;
+    bool distancing;
+    int centralLocations;
+
+    int width;
+    int height;
+    int iterations;
+    int thread;
+
+    in >> entCount;
+    in >> initInf;
+    in >> initMob;
+    in >> hospCap;
+
+    in >> tpt;
+    in >> tue;
+
+    in >> infChance;
+    in >> survChance;
+    in >> detectChance;
+
+    in >> infRadius;
+    in >> distancing;
+    in >> centralLocations;
+
+    in >> width;
+    in >> height;
+    in >> iterations;
+    in >> thread;
+
+    ui->spinbox_entitycount->setValue(entCount);
+    ui->spinbox_initialinfected->setValue(initInf);
+    ui->spinbox_mobileentities->setValue(initMob);
+    ui->spinbox_hospitalcap->setValue(hospCap);
+
+    ui->spinbox_testspertick->setValue(tpt);
+    ui->spinbox_ticksuntilexpiration->setValue(tue);
+
+    ui->spinbox_infectionchance->setValue(infChance);
+    ui->spinbox_survivalchance->setValue(survChance);
+    ui->spinbox_detectionchance->setValue(detectChance);
+
+    ui->spinbox_influenceradius->setValue(infRadius);
+    ui->checkbox_distancing->setEnabled(distancing);
+    ui->spinbox_centrallocations->setValue(centralLocations);
+
+    ui->spinbox_width->setValue(width);
+    ui->spinbox_height->setValue(height);
+    ui->spinbox_iterations->setValue(iterations);
+    ui->spinbox_threads->setValue(thread);
+}
