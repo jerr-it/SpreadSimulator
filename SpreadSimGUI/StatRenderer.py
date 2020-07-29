@@ -13,8 +13,10 @@ stats = {
     "Susceptible": [],
     "Infected": [],
     "Cured": [],
-    "Dead": []
+    "Dead": [],
 }
+
+hospitalized = []
 
 rs = {
     "R0": [],
@@ -30,6 +32,7 @@ for line in sys.stdin:
     stats["Infected"].append(int(dataSegments[2]))
     stats["Cured"].append(int(dataSegments[3]))
     stats["Dead"].append(int(dataSegments[4]))
+    hospitalized.append(int(dataSegments[5]))
 
     rs["R0"].append(float(dataSegments[6]))
     rs["Re"].append(float(dataSegments[7]))
@@ -37,7 +40,7 @@ for line in sys.stdin:
 fig, ax = plt.subplots(1)
 
 ax.stackplot(ticks, stats.values(), labels=stats.keys())
-ax.legend(loc="upper left")
+ax.legend(loc="upper right")
 ax.set_title("Simulation")
 ax.set_xlabel("Tick")
 ax.set_ylabel("Count")
@@ -54,5 +57,12 @@ ax2.set_title(r"$R_0/R_e$")
 ax3.plot(ticks, rs["Re"])
 ax3.set_xlabel("Tick")
 ax3.set_ylabel(r"$R_e$")
+
+fig3, ax4 = plt.subplots(1)
+ax4.plot(ticks, hospitalized)
+ax4.legend(loc="upper right")
+ax4.set_title("Hospitalized")
+ax4.set_xlabel("Tick")
+ax4.set_ylabel("Hospitalized")
 
 plt.show()
