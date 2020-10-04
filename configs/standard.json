@@ -1,0 +1,1 @@
+{"EntityCount":1000,"InitialInfected":5,"InitialMobile":1000,"HospitalCapacity":10,"TestsPerTick":10,"ExpirationTicks":24000,"InfectionChance":0.5,"SurvivalChance":0.5,"DetectionChance":0.5,"InfluenceRadius":5,"ActiveDistancing":true,"CentralLocations":4,"DimX":800,"DimY":600}

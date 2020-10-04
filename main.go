@@ -21,6 +21,8 @@ func main() {
 		800,   //Width of area (and window)
 		600)   //Height of area (and window)
 
+	config.ToJSON("standard")
+
 	instance, err := simulator.NewSDLInstance(config, "Simulation")
 	if err != nil {
 		panic(err)

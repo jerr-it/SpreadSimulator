@@ -1,5 +1,10 @@
 package simulator
 
+import (
+	"encoding/json"
+	"io/ioutil"
+)
+
 //config struct
 //TODO json formatting save
 type config struct {
@@ -36,5 +41,34 @@ func NewConfig(EntityCount int, InitialInfected int, mobileCount int,
 		infectionChance, survivalChance, detectionChance,
 		influenceRadius, activeDistancing,
 		centralLocations, dimX, dimY,
+	}
+}
+
+//FromJSON creates a config from a given config file
+func FromJSON(fileName string) config {
+	file, err := ioutil.ReadFile("./configs/" + fileName + ".json")
+	if err != nil {
+		panic(err)
+	}
+
+	var con config
+	err = json.Unmarshal(file, &con)
+	if err != nil {
+		panic(err)
+	}
+
+	return con
+}
+
+//ToJSON saves this config as a file
+func (con *config) ToJSON(fileName string) {
+	data, err := json.Marshal(con)
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile("./configs/"+fileName+".json", data, 0644)
+	if err != nil {
+		panic(err)
 	}
 }
