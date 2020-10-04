@@ -19,12 +19,13 @@ For the old C version, see the legacy zip file.
 </p>
 
 ## Run
+Requires https://github.com/veandco/go-sdl2
 ```
 go build
 ./SpreadSimulator [options]
 ```
 The following options are available;
-1. -cfg [filame] | Choose a configuration by its filename, will use standard if omitted
+1. -cfg [filame] | Choose a configuration by its filename, will use 'standard' if omitted
 2. -v | Log current statistics in console
 
 <i> Example calls </i>
@@ -35,10 +36,11 @@ The following options are available;
 
 
 ## TODO
-1. Config via JSON
+1. ~~Config via JSON~~
 2. Statistics export using CSV
-3. CLI Options/Flags
-4. Live Statistics
+3. ~~CLI Options/Flags~~
+4. (Live?) Visual Statistics
+5. More Rendering Backends
 5. ???
 6. Profit
 
