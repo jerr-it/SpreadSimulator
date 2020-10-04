@@ -16,6 +16,8 @@ func main() {
 	flag.StringVar(&configFile, "cfg", "standard", "Select config file")
 	var verbose bool
 	flag.BoolVar(&verbose, "v", false, "Set verbose logging")
+	var export bool
+	flag.BoolVar(&export, "export", false, "Want a csv file containing stats?")
 
 	flag.Parse()
 
@@ -27,6 +29,9 @@ func main() {
 	}
 
 	instance.Run()
-	now := time.Now()
-	instance.SaveStats(configFile + fmt.Sprintf("_%d_%d_%d_%d:%d:%d_", now.Year(), now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second()))
+
+	if export {
+		now := time.Now()
+		instance.SaveStats(configFile + fmt.Sprintf("_%d_%d_%d_%d:%d:%d_", now.Year(), now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second()))
+	}
 }
