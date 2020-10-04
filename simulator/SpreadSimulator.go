@@ -121,7 +121,6 @@ func (simulator *SpreadSimulator) Tick() {
 	//New column of values for statistic
 	simulator.Stats.newColumn()
 	simulator.gatherStats()
-	//simulator.Stats.print()
 
 	simulator.tick++
 }

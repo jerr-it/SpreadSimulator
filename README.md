@@ -21,8 +21,18 @@ For the old C version, see the legacy zip file.
 ## Run
 ```
 go build
-./SpreadSimulator
+./SpreadSimulator [options]
 ```
+The following options are available;
+1. -cfg [filame] | Choose a configuration by its filename, will use standard if omitted
+2. -v | Log current statistics in console
+
+<i> Example calls </i>
+```
+./SpreadSimulator -v
+./SpreadSimulator -cfg customConfig -v
+```
+
 
 ## TODO
 1. Config via JSON

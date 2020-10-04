@@ -14,10 +14,11 @@ type SDLInstance struct {
 	window    *sdl.Window
 	renderer  *sdl.Renderer
 	simulator *SpreadSimulator
+	verbose   bool
 }
 
 //NewSDLInstance creates a new sdl instance
-func NewSDLInstance(config config, title string) (*SDLInstance, error) {
+func NewSDLInstance(config config, title string, verbose bool) (*SDLInstance, error) {
 	window, err := sdl.CreateWindow(title, sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED, int32(config.DimX), int32(config.DimY), sdl.WINDOW_SHOWN)
 	if err != nil {
 		return nil, err
@@ -34,6 +35,7 @@ func NewSDLInstance(config config, title string) (*SDLInstance, error) {
 		window,
 		renderer,
 		simulator,
+		verbose,
 	}, nil
 }
 
@@ -87,6 +89,9 @@ func (sdlInst *SDLInstance) Run() {
 
 		sdlInst.drawSimulator()
 
+		if sdlInst.verbose {
+			sdlInst.simulator.Stats.print()
+		}
 		sdlInst.renderer.Present()
 
 		//Update entities
