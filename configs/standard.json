@@ -4,7 +4,7 @@
     "InitialMobile": 1000,
     "HospitalCapacity": 10,
     "TestsPerTick": 10,
-    "ExpirationTicks": 24000,
+    "ExpirationTicks": 2400,
     "InfectionChance": 0.5,
     "SurvivalChance": 0.5,
     "DetectionChance": 0.5,

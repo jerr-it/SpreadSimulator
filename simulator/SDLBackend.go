@@ -98,3 +98,8 @@ func (sdlInst *SDLInstance) Run() {
 		sdlInst.simulator.Tick()
 	}
 }
+
+//SaveStats saves the internal simulators stats
+func (sdlInst *SDLInstance) SaveStats(name string) {
+	sdlInst.simulator.Stats.SaveCSV(name)
+}

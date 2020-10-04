@@ -1,6 +1,11 @@
 package simulator
 
-import "fmt"
+import (
+	"encoding/csv"
+	"fmt"
+	"os"
+	"strconv"
+)
 
 //Statistic holds information about current and past infection related numbers
 //TODO export as CSV
@@ -48,4 +53,31 @@ func (stat *statistic) print() {
 		stat.Cured[len(stat.Cured)-1],
 		stat.Dead[len(stat.Dead)-1],
 		stat.Hospitalized[len(stat.Hospitalized)-1])
+}
+
+func (stat *statistic) SaveCSV(fileName string) {
+	file, err := os.Create("./export/" + fileName + ".csv")
+	if err != nil {
+		panic(err)
+	}
+
+	csvWriter := csv.NewWriter(file)
+
+	csvWriter.Write(intToStringSlice(stat.Susceptible))
+	csvWriter.Write(intToStringSlice(stat.Infected))
+	csvWriter.Write(intToStringSlice(stat.Cured))
+	csvWriter.Write(intToStringSlice(stat.Dead))
+	csvWriter.Write(intToStringSlice(stat.Hospitalized))
+
+	csvWriter.Flush()
+
+	file.Close()
+}
+
+func intToStringSlice(dat []uint) []string {
+	res := make([]string, len(dat))
+	for i := range dat {
+		res[i] = strconv.Itoa(int(dat[i]))
+	}
+	return res
 }

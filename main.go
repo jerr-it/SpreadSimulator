@@ -3,6 +3,12 @@ package main
 import (
 	"SpreadSimulator/simulator"
 	"flag"
+	"fmt"
+	"time"
+)
+
+const (
+	layoutISO = "2006-01-02"
 )
 
 func main() {
@@ -21,4 +27,6 @@ func main() {
 	}
 
 	instance.Run()
+	now := time.Now()
+	instance.SaveStats(configFile + fmt.Sprintf("_%d_%d_%d_%d:%d:%d_", now.Year(), now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second()))
 }
