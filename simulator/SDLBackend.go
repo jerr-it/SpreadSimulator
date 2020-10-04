@@ -29,7 +29,6 @@ func NewSDLInstance(config config, title string) (*SDLInstance, error) {
 	}
 
 	simulator := NewSimulator(config)
-	simulator.healthData[0].isInfected = true
 
 	return &SDLInstance{
 		window,
@@ -47,6 +46,15 @@ func (sdlInst *SDLInstance) drawSimulator() {
 			W: EntityRectWidth, H: EntityRectWidth,
 		}
 		sdlInst.renderer.FillRect(&rct)
+	}
+
+	for i := 0; i < sdlInst.simulator.Config.CentralLocations; i++ {
+		sdlInst.renderer.SetDrawColor(30, 144, 255, 255)
+		rct := sdl.Rect{
+			X: int32(sdlInst.simulator.centralLocations[i].X - CentralLocationsRange), Y: int32(sdlInst.simulator.centralLocations[i].Y - CentralLocationsRange),
+			W: CentralLocationsRange * 2, H: CentralLocationsRange * 2,
+		}
+		sdlInst.renderer.DrawRect(&rct)
 	}
 }
 

@@ -13,6 +13,7 @@ import (
 const (
 	EntitySpeedLimit      = 50.0
 	CentralLocationsRange = 50
+	ForcePeriod           = 1024
 )
 
 //SpreadSimulator struct
@@ -21,6 +22,10 @@ type SpreadSimulator struct {
 	velocities    []util.Vector2f
 	accelerations []util.Vector2f
 	healthData    []HealthData
+
+	centralLocations []util.Vector2f
+	forceDirection   int
+	tick             int
 
 	previousTime time.Time
 	currentTime  time.Time
@@ -39,6 +44,9 @@ func NewSimulator(config config) *SpreadSimulator {
 		make([]util.Vector2f, config.EntityCount),
 		make([]util.Vector2f, config.EntityCount),
 		make([]HealthData, config.EntityCount),
+		make([]util.Vector2f, config.CentralLocations),
+		1,
+		0,
 		time.Now(),
 		time.Now(),
 		0.0,
@@ -47,6 +55,7 @@ func NewSimulator(config config) *SpreadSimulator {
 		nil,
 	}
 
+	rand.Seed(time.Now().UnixNano())
 	simulator.initEntities()
 
 	return simulator
@@ -71,6 +80,13 @@ func (simulator *SpreadSimulator) initEntities() {
 		}
 	}
 
+	for i := 0; i < simulator.Config.CentralLocations; i++ {
+		xpos := rand.Float64() * float64(simulator.Config.DimX)
+		ypos := rand.Float64() * float64(simulator.Config.DimY)
+
+		simulator.centralLocations[i] = util.Vector2f{X: xpos, Y: ypos}
+	}
+
 	simulator.Stats.newColumn()
 	simulator.Stats.Susceptible[len(simulator.Stats.Susceptible)-1] = uint(simulator.Config.EntityCount - simulator.Config.InitialInfected)
 	simulator.Stats.Infected[len(simulator.Stats.Infected)-1] = uint(simulator.Config.InitialInfected)
@@ -78,6 +94,10 @@ func (simulator *SpreadSimulator) initEntities() {
 
 //Tick simulates one tick
 func (simulator *SpreadSimulator) Tick() {
+	if simulator.tick%ForcePeriod == 0 {
+		simulator.forceDirection *= -1
+	}
+
 	//Update deltaTime
 	simulator.currentTime = time.Now()
 	simulator.Δt = simulator.currentTime.Sub(simulator.previousTime).Seconds()
@@ -101,7 +121,9 @@ func (simulator *SpreadSimulator) Tick() {
 	//New column of values for statistic
 	simulator.Stats.newColumn()
 	simulator.gatherStats()
-	simulator.Stats.print()
+	//simulator.Stats.print()
+
+	simulator.tick++
 }
 
 //Initializes the internal quadtree.
@@ -174,6 +196,24 @@ func (simulator *SpreadSimulator) moveEntity(idx int) {
 			repulsion.Mult(simulator.positions[idx].InvDist(simulator.positions[inRange[j]]))
 			repulsion.Mult(10 / EntitySpeedLimit)
 			simulator.addForce(idx, repulsion)
+		}
+	}
+
+	for i := range simulator.centralLocations {
+		bounds := util.NewRect(
+			simulator.centralLocations[i],
+			util.Vector2f{X: CentralLocationsRange, Y: CentralLocationsRange},
+		)
+
+		inRange := simulator.currentQuadtree.QueryRange(bounds)
+
+		for j := range inRange {
+			attraction := util.Vector2f{X: simulator.centralLocations[i].X, Y: simulator.centralLocations[i].Y}
+			attraction.Sub(simulator.positions[inRange[j]])
+			attraction.Mult(simulator.positions[inRange[j]].InvDist(simulator.centralLocations[i]))
+			attraction.Mult(10 / EntitySpeedLimit)
+			attraction.Mult(float64(simulator.forceDirection))
+			simulator.addForce(inRange[j], attraction)
 		}
 	}
 }
