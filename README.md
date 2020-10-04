@@ -42,11 +42,12 @@ The following options are available;
 1. ~~Config via JSON~~
 2. ~~Statistics export using CSV~~
 3. ~~CLI Options/Flags~~
-4. NoGUI option
-5. (Live?) Visual Statistics
-6. More Rendering Backends
-7. ???
-8. Profit
+4. R0 and Re
+5. NoGUI option
+6. (Live?) Visual Statistics
+7. More Rendering Backends
+8. ???
+9. Profit
 
 ## How it works
 In the following text the phrase within parenthesis will be a reference to above code snippets comments.  
