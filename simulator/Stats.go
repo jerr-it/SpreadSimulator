@@ -63,21 +63,22 @@ func (stat *statistic) SaveCSV(fileName string) {
 
 	csvWriter := csv.NewWriter(file)
 
-	csvWriter.Write(intToStringSlice(stat.Susceptible))
-	csvWriter.Write(intToStringSlice(stat.Infected))
-	csvWriter.Write(intToStringSlice(stat.Cured))
-	csvWriter.Write(intToStringSlice(stat.Dead))
-	csvWriter.Write(intToStringSlice(stat.Hospitalized))
+	csvWriter.Write(intToStringSlice("Susceptible", stat.Susceptible))
+	csvWriter.Write(intToStringSlice("Infected", stat.Infected))
+	csvWriter.Write(intToStringSlice("Cured", stat.Cured))
+	csvWriter.Write(intToStringSlice("Dead", stat.Dead))
+	csvWriter.Write(intToStringSlice("Hospitalized", stat.Hospitalized))
 
 	csvWriter.Flush()
 
 	file.Close()
 }
 
-func intToStringSlice(dat []uint) []string {
-	res := make([]string, len(dat))
+func intToStringSlice(rowName string, dat []uint) []string {
+	res := make([]string, len(dat)+1)
+	res[0] = rowName
 	for i := range dat {
-		res[i] = strconv.Itoa(int(dat[i]))
+		res[i+1] = strconv.Itoa(int(dat[i]))
 	}
 	return res
 }
