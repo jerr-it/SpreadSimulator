@@ -1,103 +1,37 @@
 <h1 align="center">SpreadSimulator</h1>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/-Language-blue?style=for-the-badge&logo=c" />
+    <img src="https://img.shields.io/badge/-Golang-blue?style=for-the-badge&logo=go" />
 </div>
 
 <br>
 
 <p align="center">
-A Simulation of the spread and containment of infections
+Simulation of the spread and containment of infections
 </p>
 
+<h2 align="center">
+    New
+</h2>
 <p align="center">
-    <img src="img/screenshot.png" width=900/>
+Complete rework in <b>Go</b>.
+For the old C version, see the legacy zip file.
 </p>
 
-Image made in combination with [SFPlot](https://github.com/cherrysrc/SFPlot) and SFML
-
-<p align="center">
-    <img src="img/gui.png" width=900>
-    <img src="img/stats.png" width=900>
-</p>
-
-<h2 align="center">Newest version</h2>
-
-<p align="center">
-Now includes a <b>QT-GUI</b> to control simulation parameters<br>
-Planned GUI features: Live Simulation using my Graphics Library, Loading/Saving Configuration
-</p>
-
-<h2 align="center">How to use</h2>
-
-Documentation can be found at: https://cherrysrc.github.io/SpreadSimulator/
-Use repo:
+## Run
 ```
-python compile.py
-python run.py
+go build
+./SpreadSimulator
 ```
 
-Include Header:
-```c
-#include "SpreadSimulator/SpreadSimulator.h"
-```
-Create settings for your simulation:
-```c
-SimulationSettings settings = createSettings(
-        1024,    /*entity count*/
-        5,      /*initial infected*/
-        850,    /*mobile entities*/
-        200,    /*hospital capacity*/
-        50,     /*tests per tick*/
-        450,    /*ticks until healed/dead*/
-        20,     /*chance of infection upon contact*/
-        50,     /*chance of surviving*/
-        50,     /*detection chance, chance of an infected being found upon testing*/
-        5,      /*radius of influence (in pixels)*/
-        true,   /*enable active distancing*/
-        4,      /*amount of central locations*/
-        600,    /*Area of movement width*/
-        600);   /*Area of movement height*/
-```
-Or load an existing configuration:
-```c
-SimulationSettings settings = *loadSettings("settings.bin");
-```
+## TODO
+1. Config via JSON
+2. Statistics export using CSV
+3. CLI Options/Flags
+4. Live Statistics
+5. ???
+6. Profit
 
-Create a SpreadSimulator:
-```c
-//Second argument is the number of threads to be used by the simulator
-SpreadSimulator simulator = createSimulator(&settings, 4);
-```  
-The values related to a probability should be between 0-100.  
-Run the simulator by one step using
-```c
-tick(&simulator);
-```
-Running 120 ticks and logging the simulator values:
-```c
-for (int i = 0; i < 120; i++)
-{
-    printStats(&simulator);
-    //Use function below in case you want to save the data into a file using
-    // ./SpreadingSimulation > data.txt
-    //It removes unnecessary descriptions and makes the resulting file easier to parse
-    //printStatsRaw(simulator);
-    tick(simulator);
-}
-```
-Save your settings to a file for later use:
-```c
-saveSettings(&settings, "settings.bin");
-```
-You also have the option to save a more human-readable file:
-```c
-exportSettings(&settings, "exportSettings.txt");
-```
-Dont forget to free afterwards to avoid memory leaks
-```c
-cleanup(&simulator);
-```
 ## How it works
 In the following text the phrase within parenthesis will be a reference to above code snippets comments.  
 The simulator creates a given number of entities(samples) within a confined space(Area of movement).  
