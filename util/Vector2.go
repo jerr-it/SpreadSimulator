@@ -1,5 +1,9 @@
 package util
 
+//#include "sq.c"
+import "C"
+import "math"
+
 //Vector2i implements iVector for integers
 type Vector2i struct {
 	X int
@@ -55,4 +59,33 @@ func (a *Vector2f) CpyMult(scale float64) Vector2f {
 		X: a.X * scale,
 		Y: a.Y * scale,
 	}
+}
+
+//GetMag returns the magnitude
+func (a *Vector2f) GetMag() float64 {
+	return math.Sqrt(a.X*a.X + a.Y*a.Y)
+}
+
+//ClampMag limits the magnitude
+func (a *Vector2f) ClampMag(max float64) {
+	magSq := a.X*a.X + a.Y*a.Y
+	if magSq < max*max {
+		return
+	}
+
+	invSqrt := float64(C.InverseSquare(C.float(magSq)))
+
+	a.X *= invSqrt
+	a.Y *= invSqrt
+
+	a.X *= max
+	a.Y *= max
+}
+
+//InvDist returns the 1/sqrt(distSq) to the vector b
+func (a *Vector2f) InvDist(b Vector2f) float64 {
+	abx := a.X - b.X
+	aby := a.Y - b.Y
+	distSq := abx*abx + aby*aby
+	return float64(C.InverseSquare(C.float(distSq)))
 }

@@ -1,6 +1,7 @@
 package simulator
 
 //config struct
+//TODO json formatting save
 type config struct {
 	EntityCount     int
 	InitialInfected int

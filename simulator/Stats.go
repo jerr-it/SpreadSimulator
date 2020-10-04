@@ -3,6 +3,7 @@ package simulator
 import "fmt"
 
 //Statistic holds information about current and past infection related numbers
+//TODO export as CSV
 type statistic struct {
 	Susceptible  []uint
 	Infected     []uint

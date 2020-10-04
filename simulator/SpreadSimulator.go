@@ -9,8 +9,10 @@ import (
 )
 
 //Simulator related constants
+//TODO make them part of the config
 const (
-	EntitySpeedLimit = 100.0
+	EntitySpeedLimit      = 50.0
+	CentralLocationsRange = 50
 )
 
 //SpreadSimulator struct
@@ -129,6 +131,8 @@ func (simulator *SpreadSimulator) runInfections() {
 
 			simulator.moveEntity(i)
 			simulator.calculateInfection(i)
+
+			simulator.velocities[i].ClampMag(EntitySpeedLimit)
 		}(i)
 	}
 
@@ -151,6 +155,26 @@ func (simulator *SpreadSimulator) moveEntity(idx int) {
 	}
 	if !inYBounds {
 		simulator.velocities[idx].Y *= -1
+	}
+
+	if simulator.Config.ActiveDistancing {
+		bounds := util.NewRect(
+			simulator.positions[idx],
+			util.Vector2f{X: simulator.Config.InfluenceRadius * 2, Y: simulator.Config.InfluenceRadius * 2},
+		)
+		inRange := simulator.currentQuadtree.QueryRange(bounds)
+
+		for j := range inRange {
+			if idx == j {
+				continue
+			}
+
+			repulsion := util.Vector2f{X: simulator.positions[idx].X, Y: simulator.positions[idx].Y}
+			repulsion.Sub(simulator.positions[inRange[j]])
+			repulsion.Mult(simulator.positions[idx].InvDist(simulator.positions[inRange[j]]))
+			repulsion.Mult(10 / EntitySpeedLimit)
+			simulator.addForce(idx, repulsion)
+		}
 	}
 }
 
@@ -236,7 +260,7 @@ func (simulator *SpreadSimulator) addForce(idx int, force util.Vector2f) {
 //Used to make entites bounce off the edges.
 //returns X,Y.
 func (simulator *SpreadSimulator) inBounds(pos util.Vector2f) (bool, bool) {
-	return !(pos.X < 0 || pos.X >= float64(simulator.Config.DimX)), !(pos.Y < 0 || pos.Y >= float64(simulator.Config.DimY))
+	return !(pos.X <= 0 || pos.X >= float64(simulator.Config.DimX-1)), !(pos.Y <= 0 || pos.Y >= float64(simulator.Config.DimY-1))
 }
 
 //Gather all entities within a given range.

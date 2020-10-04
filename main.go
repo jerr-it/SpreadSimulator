@@ -1,6 +1,8 @@
 package main
 
-import "SpreadSimulator/simulator"
+import (
+	"SpreadSimulator/simulator"
+)
 
 func main() {
 	config := simulator.NewConfig(
@@ -14,7 +16,7 @@ func main() {
 		0.5,   //Chance of survival
 		0.5,   //Chance of detection
 		5.0,   //Radius in which others can be infected
-		false, //Active distancing
+		true,  //Active distancing
 		0,     //Number of central locations
 		800,   //Width of area (and window)
 		600)   //Height of area (and window)
