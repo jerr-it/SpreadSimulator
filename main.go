@@ -2,26 +2,16 @@ package main
 
 import (
 	"SpreadSimulator/simulator"
+	"flag"
 )
 
 func main() {
-	config := simulator.NewConfig(
-		1000,  //Entity Count
-		5,     //Initial Infected
-		1000,  //Initial Mobile
-		10,    //Hospital Capacity
-		10,    //Tests per tick
-		24000, //Ticks until decision of life and death
-		0.5,   //Chance of infection
-		0.5,   //Chance of survival
-		0.5,   //Chance of detection
-		5.0,   //Radius in which others can be infected
-		true,  //Active distancing
-		4,     //Number of central locations
-		800,   //Width of area (and window)
-		600)   //Height of area (and window)
+	var configFile string
+	flag.StringVar(&configFile, "cfg", "standard", "Select config file")
 
-	config.ToJSON("standard")
+	flag.Parse()
+
+	config := simulator.FromJSON(configFile)
 
 	instance, err := simulator.NewSDLInstance(config, "Simulation")
 	if err != nil {
