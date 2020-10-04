@@ -27,11 +27,14 @@ go build
 The following options are available;
 1. -cfg [filame] | Choose a configuration by its filename, will use 'standard' if omitted
 2. -v | Log current statistics in console
+3. -export | Saves the statistics into the export directory as a CSV-File
 
 <i> Example calls </i>
 ```
 ./SpreadSimulator -v
 ./SpreadSimulator -cfg customConfig -v
+./SpreadSimulator -v -export
+./SpreadSimulator -cfg customConfig -export
 ```
 
 
