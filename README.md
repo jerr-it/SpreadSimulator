@@ -40,7 +40,7 @@ The following options are available;
 
 ## TODO
 1. ~~Config via JSON~~
-2. Statistics export using CSV
+2. ~~Statistics export using CSV~~
 3. ~~CLI Options/Flags~~
 4. (Live?) Visual Statistics
 5. More Rendering Backends
