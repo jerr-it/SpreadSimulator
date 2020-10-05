@@ -3,12 +3,20 @@
 <p align="center">
     <img src="https://img.shields.io/badge/-Golang-blue?style=for-the-badge&logo=go" />
 </div>
-
-<br>
-
 <p align="center">
 Simulation of the spread and containment of infections
 </p>
+<br>
+
+<p align="center">
+    <img src="media/sim01.png" width=300></img>
+    <img src="media/sim02.png" width=300></img>
+</p>
+<p align="center">
+    <img src="media/sim03.png" width=300></img>
+    <img src="media/sim04.png" width=300></img>
+</p>
+
 
 <h2 align="center">
     New
@@ -50,15 +58,14 @@ The following options are available;
 9. Profit
 
 ## How it works
-In the following text the phrase within parenthesis will be a reference to above code snippets comments.  
-The simulator creates a given number of entities(samples) within a confined space(Area of movement).  
-Each of them is given a randomized motion vector, which is added to their position every tick.   
-A number of them will be infected at the start(initial infected).  
-A number of them will be able to move around(mobile entities).
-If another entity passes within a given radius(radius of influence in pixels), it'll get infected by a certain probability(chance of infection upon contact).  
-When an entity gets infected a timer will start. As soon as this timer runs out, the entity will either survive or die by a certain percentage(chance of surviving).  
-The hospital capacity(hospital capacity) determines how many hospital slots are available to the infected.  
-Each tick a number of random entities(tests per tick) will be tested and detected using a certain probability(detection chance).  
-In the case of an entity getting a positive test result, meaning he will be hospitalized, he won't be able to move anymore and its chance of surviving is set to 90%.
-If active social distancing is set to true, the entities will try actively try to avoid each other.
+The simulator creates a given number of entities within a confined space.  
+Each of them is given a randomized motion vector, which is applied every tick.   
+A number of them will be infected at the start.  
+A number of them will be able to move around.  
+If another entity passes within a given radius, it'll get infected by a certain probability.  
+When an entity gets infected a timer will start. As soon as this timer runs out, the entity will either survive or die by a certain chance.  
+The hospital capacity determines how many hospital slots are available to the infected.  
+Each tick a number of random entities will be tested and detected using a certain probability. This simulates test accuracy.  
+In the case of an entity getting a positive test result, the entity will be hospitalized, which means he will be immobile and its chance of survival rises to 90%.  
+If active social distancing is set to true, the entities will actively try to avoid each other.
 Randomly placed central locations attract entities during opening hours and repell them during closing time.
