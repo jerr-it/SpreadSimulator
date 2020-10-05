@@ -9,12 +9,12 @@ Simulation of the spread and containment of infections
 <br>
 
 <p align="center">
-    <img src="media/sim01.png" width=300></img>
-    <img src="media/sim02.png" width=300></img>
+    <img src="media/sim01.png" width=350></img>
+    <img src="media/sim02.png" width=350></img>
 </p>
 <p align="center">
-    <img src="media/sim03.png" width=300></img>
-    <img src="media/sim04.png" width=300></img>
+    <img src="export/standard_2020_10_5_18:7:57_.csv.png" width=350></img>
+    <img src="export/standard_2020_10_5_18:17:32_.csv.png" width=350></img>
 </p>
 
 
@@ -27,7 +27,8 @@ For the old C version, see the legacy zip file.
 </p>
 
 ## Run
-Requires https://github.com/veandco/go-sdl2
+Requires https://github.com/veandco/go-sdl2  
+Plotgeneration requires Python and Matplotlib, however these are not required to run the simulator
 ```
 go build
 ./SpreadSimulator [options]
@@ -35,7 +36,11 @@ go build
 The following options are available;
 1. -cfg [filame] | Choose a configuration by its filename, will use 'standard' if omitted
 2. -v | Log current statistics in console
-3. -export | Saves the statistics into the export directory as a CSV-File
+3. -export | Saves the statistics into the export directory as a CSV-File, run
+```
+python plotGenerator.py
+```
+to generate a plot for all csv files in the export directory
 
 <i> Example calls </i>
 ```
@@ -52,7 +57,7 @@ The following options are available;
 3. ~~CLI Options/Flags~~
 4. R0 and Re
 5. NoGUI option
-6. (Live?) Visual Statistics
+6. (Live?) ~~Visual Statistics~~
 7. More Rendering Backends
 8. ???
 9. Profit

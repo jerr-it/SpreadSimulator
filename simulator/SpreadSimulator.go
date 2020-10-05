@@ -88,8 +88,6 @@ func (simulator *SpreadSimulator) initEntities() {
 	}
 
 	simulator.Stats.newColumn()
-	simulator.Stats.Susceptible[len(simulator.Stats.Susceptible)-1] = uint(simulator.Config.EntityCount - simulator.Config.InitialInfected)
-	simulator.Stats.Infected[len(simulator.Stats.Infected)-1] = uint(simulator.Config.InitialInfected)
 }
 
 //Tick simulates one tick
@@ -220,7 +218,7 @@ func (simulator *SpreadSimulator) moveEntity(idx int) {
 //Test randomly selected entities
 func (simulator *SpreadSimulator) runTests() {
 	for i := 0; i < simulator.Config.TestsPerTick; i++ {
-		if simulator.Stats.Hospitalized[len(simulator.Stats.Hospitalized)-1] >= uint(simulator.Config.HospitalCapacity) {
+		if simulator.Stats.GetHospitalCount() >= uint(simulator.Config.HospitalCapacity) {
 			//No space in hospital
 			//TODO add personal quarantine
 			//People are immobile, but their survival chance isn't increased
@@ -287,7 +285,7 @@ func (simulator *SpreadSimulator) gatherStats() {
 		}
 	}
 
-	simulator.Stats.setCurrent(s, i, c, d, h)
+	simulator.Stats.setCurrent(uint(simulator.tick), s, i, c, d, h)
 }
 
 //Apply a force to an entity
