@@ -81,8 +81,8 @@ func (simulator *SpreadSimulator) initEntities() {
 	}
 
 	for i := 0; i < simulator.Config.CentralLocations; i++ {
-		xpos := rand.Float64() * float64(simulator.Config.DimX)
-		ypos := rand.Float64() * float64(simulator.Config.DimY)
+		xpos := CentralLocationsRange + rand.Float64()*float64(simulator.Config.DimX-CentralLocationsRange*2)
+		ypos := CentralLocationsRange + rand.Float64()*float64(simulator.Config.DimY-CentralLocationsRange*2)
 
 		simulator.centralLocations[i] = util.Vector2f{X: xpos, Y: ypos}
 	}
