@@ -23,7 +23,8 @@ Simulation of the spread and containment of infections
 </h2>
 <p align="center">
 Complete rework in <b>Go</b>.
-For the old C version, see the legacy zip file.
+For the old C version, see:
+<a href="https://github.com/cherrysrc/SpreadSimulator_C">https://github.com/cherrysrc/SpreadSimulator_C</a>
 </p>
 
 ## Run
