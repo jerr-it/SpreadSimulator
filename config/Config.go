@@ -8,6 +8,7 @@ import (
 //config struct
 //TODO json formatting save
 type Configuration struct {
+	Ticks           int
 	EntityCount     int
 	InitialInfected int
 	InitialMobile   int
@@ -30,12 +31,13 @@ type Configuration struct {
 }
 
 //New creates a new configuration for the simulator itself
-func New(EntityCount int, InitialInfected int, mobileCount int,
+func New(Ticks int, EntityCount int, InitialInfected int, mobileCount int,
 	hospitalCap int, testsPerTick int, expirationTicks int,
 	infectionChance float64, survivalChance float64, detectionChance float64,
 	influenceRadius float64, activeDistancing bool,
 	centralLocations int, dimX int, dimY int) Configuration {
 	return Configuration{
+		Ticks,
 		EntityCount, InitialInfected, mobileCount,
 		hospitalCap, testsPerTick, expirationTicks,
 		infectionChance, survivalChance, detectionChance,

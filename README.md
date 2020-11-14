@@ -38,6 +38,8 @@ The following options are available;
 1. -cfg [filame] | Choose a configuration by its filename, will use 'standard' if omitted
 2. -v | Log current statistics in console
 3. -export | Saves the statistics into the export directory as a CSV-File, run
+4. -nogui | Disable graphics view.
+
 ```
 python plotGenerator.py
 ```
@@ -47,8 +49,9 @@ to generate a plot for all csv files in the export directory
 ```
 ./SpreadSimulator -v
 ./SpreadSimulator -cfg customConfig -v
-./SpreadSimulator -v -export
+./SpreadSimulator -v -export -nogui
 ./SpreadSimulator -cfg customConfig -export
+./SpreadSimulator -cfg customConfig -export -nogui
 ```
 
 
@@ -57,7 +60,7 @@ to generate a plot for all csv files in the export directory
 2. ~~Statistics export using CSV~~
 3. ~~CLI Options/Flags~~
 4. R0 and Re
-5. NoGUI option
+5. ~~NoGUI option~~
 6. (Live?) ~~Visual Statistics~~
 7. More Rendering Backends
 8. ???

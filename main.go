@@ -4,8 +4,6 @@ import (
 	"SpreadSimulator/backends"
 	"SpreadSimulator/config"
 	"flag"
-	"fmt"
-	"time"
 )
 
 const (
@@ -15,10 +13,15 @@ const (
 func main() {
 	var configFile string
 	flag.StringVar(&configFile, "cfg", "standard", "Select config file")
+
 	var verbose bool
 	flag.BoolVar(&verbose, "v", false, "Set verbose logging")
+
 	var export bool
 	flag.BoolVar(&export, "export", false, "Want a csv file containing stats?")
+
+	var nogui bool
+	flag.BoolVar(&nogui, "nogui", false, "Graphics?")
 
 	flag.Parse()
 
@@ -27,15 +30,20 @@ func main() {
 		panic(err)
 	}
 
-	instance, err := backends.NewSDL(config, "Simulation", verbose)
-	if err != nil {
-		panic(err)
+	var instance backends.IBackend
+
+	if nogui {
+		instance = backends.NewNoGUI(config, verbose)
+	} else {
+		instance, err = backends.NewSDL(config, "Simulation", verbose)
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	instance.Run()
 
 	if export {
-		now := time.Now()
-		instance.SaveStats(configFile + fmt.Sprintf("_%d_%d_%d_%d:%d:%d_", now.Year(), now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second()))
+		instance.SaveStats(configFile)
 	}
 }

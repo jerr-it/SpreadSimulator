@@ -3,6 +3,8 @@ package backends
 import (
 	"SpreadSimulator/config"
 	"SpreadSimulator/simulator"
+	"fmt"
+	"time"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -81,13 +83,11 @@ func (sdlInst *SDL) statusToColor(idx int) (uint8, uint8, uint8, uint8) {
 
 //Run starts the sdl window/event loop
 func (sdlInst *SDL) Run() {
-	running := true
-
-	for running {
+	for tick := 0; tick < sdlInst.simulator.Config.Ticks; tick++ {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch event.(type) {
 			case *sdl.QuitEvent:
-				running = false
+				tick = sdlInst.simulator.Config.Ticks
 				break
 			}
 		}
@@ -108,5 +108,6 @@ func (sdlInst *SDL) Run() {
 
 //SaveStats saves the internal simulators stats
 func (sdlInst *SDL) SaveStats(name string) {
-	sdlInst.simulator.Stats.SaveCSV(name)
+	now := time.Now()
+	sdlInst.simulator.Stats.SaveCSV(name + fmt.Sprintf("_%d_%d_%d_%d:%d:%d_", now.Year(), now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second()))
 }

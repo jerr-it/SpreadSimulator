@@ -1,4 +1,5 @@
 {
+    "Ticks": 10000,
     "EntityCount": 1000,
     "InitialInfected": 5,
     "InitialMobile": 1000,
