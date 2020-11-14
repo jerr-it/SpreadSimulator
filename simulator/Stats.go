@@ -47,7 +47,7 @@ func (stat *statistic) setCurrent(t, s, i, c, d, h uint) {
 	stat.statMatrix[5][currentIdx] = h
 }
 
-func (stat *statistic) print() {
+func (stat *statistic) Print() {
 	currentIdx := len(stat.statMatrix[0]) - 1
 	fmt.Printf("Susceptible: %d, Infected: %d, Cured: %d, Dead: %d, Hospital: %d\n",
 		stat.statMatrix[1][currentIdx],

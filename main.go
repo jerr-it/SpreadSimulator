@@ -1,8 +1,8 @@
 package main
 
 import (
+	"SpreadSimulator/backends"
 	"SpreadSimulator/config"
-	"SpreadSimulator/simulator"
 	"flag"
 	"fmt"
 	"time"
@@ -27,7 +27,7 @@ func main() {
 		panic(err)
 	}
 
-	instance, err := simulator.NewSDLInstance(config, "Simulation", verbose)
+	instance, err := backends.NewSDL(config, "Simulation", verbose)
 	if err != nil {
 		panic(err)
 	}

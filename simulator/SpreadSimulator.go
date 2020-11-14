@@ -39,7 +39,7 @@ type SpreadSimulator struct {
 }
 
 //NewSimulator creates a new simulator
-func NewSimulator(config config.Configuration) *SpreadSimulator {
+func New(config config.Configuration) *SpreadSimulator {
 	simulator := &SpreadSimulator{
 		make([]util.Vector2f, config.EntityCount),
 		make([]util.Vector2f, config.EntityCount),
@@ -337,4 +337,19 @@ func (simulator *SpreadSimulator) hospitalizeEvent(idx int) {
 
 func (simulator *SpreadSimulator) dehospitalizeEvent(idx int) {
 	simulator.healthData[idx].inHospital = false
+}
+
+//---
+//Getters
+
+func (simulator *SpreadSimulator) Positions(idx int) util.Vector2f {
+	return simulator.positions[idx]
+}
+
+func (simulator *SpreadSimulator) CentralLocations(idx int) util.Vector2f {
+	return simulator.centralLocations[idx]
+}
+
+func (simulator *SpreadSimulator) HealthData(idx int) HealthData {
+	return simulator.healthData[idx]
 }
