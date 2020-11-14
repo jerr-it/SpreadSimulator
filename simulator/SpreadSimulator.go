@@ -1,6 +1,7 @@
 package simulator
 
 import (
+	"SpreadSimulator/config"
 	"SpreadSimulator/quadtree"
 	"SpreadSimulator/util"
 	"math/rand"
@@ -31,14 +32,14 @@ type SpreadSimulator struct {
 	currentTime  time.Time
 	Δt           float64
 
-	Config config
+	Config config.Configuration
 	Stats  statistic
 
 	currentQuadtree *quadtree.Quadtree
 }
 
 //NewSimulator creates a new simulator
-func NewSimulator(config config) *SpreadSimulator {
+func NewSimulator(config config.Configuration) *SpreadSimulator {
 	simulator := &SpreadSimulator{
 		make([]util.Vector2f, config.EntityCount),
 		make([]util.Vector2f, config.EntityCount),

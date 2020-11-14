@@ -1,6 +1,8 @@
 package simulator
 
 import (
+	"SpreadSimulator/config"
+
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -18,7 +20,7 @@ type SDLInstance struct {
 }
 
 //NewSDLInstance creates a new sdl instance
-func NewSDLInstance(config config, title string, verbose bool) (*SDLInstance, error) {
+func NewSDLInstance(config config.Configuration, title string, verbose bool) (*SDLInstance, error) {
 	window, err := sdl.CreateWindow(title, sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED, int32(config.DimX), int32(config.DimY), sdl.WINDOW_SHOWN)
 	if err != nil {
 		return nil, err

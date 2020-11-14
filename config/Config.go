@@ -1,4 +1,4 @@
-package simulator
+package config
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 
 //config struct
 //TODO json formatting save
-type config struct {
+type Configuration struct {
 	EntityCount     int
 	InitialInfected int
 	InitialMobile   int
@@ -29,13 +29,13 @@ type config struct {
 	DimY int
 }
 
-//NewConfig creates a new configuration for the simulator itself
-func NewConfig(EntityCount int, InitialInfected int, mobileCount int,
+//New creates a new configuration for the simulator itself
+func New(EntityCount int, InitialInfected int, mobileCount int,
 	hospitalCap int, testsPerTick int, expirationTicks int,
 	infectionChance float64, survivalChance float64, detectionChance float64,
 	influenceRadius float64, activeDistancing bool,
-	centralLocations int, dimX int, dimY int) config {
-	return config{
+	centralLocations int, dimX int, dimY int) Configuration {
+	return Configuration{
 		EntityCount, InitialInfected, mobileCount,
 		hospitalCap, testsPerTick, expirationTicks,
 		infectionChance, survivalChance, detectionChance,
@@ -45,30 +45,27 @@ func NewConfig(EntityCount int, InitialInfected int, mobileCount int,
 }
 
 //FromJSON creates a config from a given config file
-func FromJSON(fileName string) config {
-	file, err := ioutil.ReadFile("./configs/" + fileName + ".json")
+func FromJSON(fileName string) (Configuration, error) {
+	file, err := ioutil.ReadFile("./settings/" + fileName + ".json")
 	if err != nil {
-		panic(err)
+		return Configuration{}, nil
 	}
 
-	var con config
+	var con Configuration
 	err = json.Unmarshal(file, &con)
 	if err != nil {
-		panic(err)
+		return Configuration{}, nil
 	}
 
-	return con
+	return con, nil
 }
 
 //ToJSON saves this config as a file
-func (con *config) ToJSON(fileName string) {
+func (con *Configuration) ToJSON(fileName string) error {
 	data, err := json.Marshal(con)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	err = ioutil.WriteFile("./configs/"+fileName+".json", data, 0644)
-	if err != nil {
-		panic(err)
-	}
+	return ioutil.WriteFile("./settings/"+fileName+".json", data, 0644)
 }

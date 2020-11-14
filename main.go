@@ -1,6 +1,7 @@
 package main
 
 import (
+	"SpreadSimulator/config"
 	"SpreadSimulator/simulator"
 	"flag"
 	"fmt"
@@ -21,7 +22,10 @@ func main() {
 
 	flag.Parse()
 
-	config := simulator.FromJSON(configFile)
+	config, err := config.FromJSON(configFile)
+	if err != nil {
+		panic(err)
+	}
 
 	instance, err := simulator.NewSDLInstance(config, "Simulation", verbose)
 	if err != nil {
