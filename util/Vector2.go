@@ -1,7 +1,5 @@
 package util
 
-//#include "sq.c"
-import "C"
 import "math"
 
 //Vector2i implements iVector for integers
@@ -73,7 +71,7 @@ func (a *Vector2f) ClampMag(max float64) {
 		return
 	}
 
-	invSqrt := float64(C.InverseSquare(C.float(magSq)))
+	invSqrt := float64(InverseSquareRoot(float32(magSq)))
 
 	a.X *= invSqrt
 	a.Y *= invSqrt
@@ -87,5 +85,5 @@ func (a *Vector2f) InvDist(b Vector2f) float64 {
 	abx := a.X - b.X
 	aby := a.Y - b.Y
 	distSq := abx*abx + aby*aby
-	return float64(C.InverseSquare(C.float(distSq)))
+	return float64(InverseSquareRoot(float32(distSq)))
 }
