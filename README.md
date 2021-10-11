@@ -17,16 +17,6 @@ Simulation of the spread and containment of infections
     <img src="export/standard_2020_10_5_18:17:32_.csv.png" width=350></img>
 </p>
 
-
-<h2 align="center">
-    New
-</h2>
-<p align="center">
-Complete rework in <b>Go</b>.
-For the old C version, see:
-<a href="https://github.com/cherrysrc/SpreadSimulator_C">https://github.com/cherrysrc/SpreadSimulator_C</a>
-</p>
-
 ## Run
 Requires https://github.com/veandco/go-sdl2  
 Plotgeneration requires Python and Matplotlib, however these are not required to run the simulator
